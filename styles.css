@@ -227,53 +227,22 @@ a {
   object-position: center top;
 }
 
-.hero-seal {
+.hero-seal-words {
   position: absolute;
-  right: 22px;
-  bottom: 48px;
-  display: grid;
-  width: 116px;
-  height: 116px;
-  place-items: center;
-  border: 1px solid rgba(181, 161, 126, 0.62);
-  border-radius: 999px;
-  background: rgba(255, 253, 248, 0.54);
-  color: #9c805e;
-  box-shadow: 0 10px 28px rgba(41, 41, 40, 0.08);
-  backdrop-filter: blur(5px);
+  right: 20px;
+  bottom: 51px;
+  width: 118px;
+  height: 118px;
+  color: rgba(126, 96, 63, 0.9);
+  pointer-events: none;
 }
 
-.hero-seal::after {
-  position: absolute;
-  left: 19px;
-  right: 19px;
-  bottom: 27px;
-  height: 13px;
-  border-bottom: 3px double rgba(120, 148, 164, 0.78);
-  border-radius: 50%;
-  content: "";
-}
-
-.hero-seal strong {
-  margin-top: 10px;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 42px;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.seal-ring {
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  width: 96px;
-  transform: translateX(-50%);
-  color: rgba(120, 96, 72, 0.88);
-  font-size: 7px;
+.hero-seal-words text {
+  fill: currentColor;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 8px;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  line-height: 1;
-  text-align: center;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -792,21 +761,11 @@ a {
     height: auto;
   }
 
-  .hero-seal {
-    right: 14px;
-    bottom: 26px;
-    width: 98px;
-    height: 98px;
-  }
-
-  .hero-seal strong {
-    font-size: 35px;
-  }
-
-  .seal-ring {
-    top: 15px;
-    width: 82px;
-    font-size: 6px;
+  .hero-seal-words {
+    right: 13px;
+    bottom: 28px;
+    width: 100px;
+    height: 100px;
   }
 
   .about-section,

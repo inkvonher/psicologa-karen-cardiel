@@ -57,10 +57,16 @@
           </div>
           <div class="hero-portrait-wrap reveal">
             <img class="hero-person" src="./assets/karen-hero-current.png" alt="Karen Cardiel" />
-            <div class="hero-seal" aria-hidden="true">
-              <span class="seal-ring">Mente · Corazón · Crecimiento</span>
-              <strong>KC</strong>
-            </div>
+            <svg class="hero-seal-words" viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <path id="sealTextPath" d="M22 66a38 38 0 0 1 76 0" />
+              </defs>
+              <text>
+                <textPath href="#sealTextPath" startOffset="50%" text-anchor="middle">
+                  MENTE · CORAZÓN · CRECIMIENTO
+                </textPath>
+              </text>
+            </svg>
           </div>
         </section>
 
