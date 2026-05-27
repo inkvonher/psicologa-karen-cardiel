@@ -56,6 +56,11 @@ a {
   grid-template-columns: 150px 1fr 108px;
   align-items: start;
   gap: 24px;
+  padding: 8px 10px 10px;
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.92), rgba(255, 253, 248, 0.72));
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(41, 41, 40, 0.05);
+  border-radius: 0 0 10px 10px;
 }
 
 .logo-link img {
@@ -107,7 +112,7 @@ a {
 
 .hero-section {
   position: relative;
-  min-height: 550px;
+  min-height: 590px;
   background:
     radial-gradient(circle at 87% 4%, rgba(224, 214, 200, 0.65), transparent 25%),
     radial-gradient(circle at 60% 48%, rgba(221, 231, 226, 0.45), transparent 18%),
@@ -127,7 +132,7 @@ a {
   position: absolute;
   z-index: 2;
   left: 65px;
-  top: 172px;
+  top: 210px;
   width: 400px;
 }
 
@@ -221,7 +226,7 @@ a {
   right: 26px;
   bottom: 0;
   width: 390px;
-  height: 520px;
+  height: 490px;
 }
 
 .hero-person {
@@ -733,6 +738,14 @@ a {
   .header-cta {
     min-width: 110px;
     margin-top: 8px;
+  }
+
+  .site-header {
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom: 0;
+    border-radius: 0;
+    padding: 18px 22px 0;
   }
 
   .hero-section {
