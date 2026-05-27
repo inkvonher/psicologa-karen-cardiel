@@ -56,11 +56,11 @@ a {
   grid-template-columns: 150px 1fr 108px;
   align-items: start;
   gap: 24px;
-  padding: 8px 10px 10px;
-  background: linear-gradient(180deg, rgba(255, 253, 248, 0.22), rgba(255, 253, 248, 0.08));
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(41, 41, 40, 0.03);
-  border-radius: 0 0 12px 12px;
+  padding: 0;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: 0;
+  border-radius: 0;
 }
 
 .logo-link img {
@@ -68,8 +68,8 @@ a {
   height: 136px;
   object-fit: contain;
   mix-blend-mode: multiply;
-  opacity: 0.92;
-  filter: contrast(1) saturate(0.9) brightness(1.02);
+  opacity: 1;
+  filter: none;
 }
 
 .main-nav {
