@@ -651,7 +651,7 @@ a {
 .footer-line {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: fit-content;
   max-width: 100%;
 }
@@ -662,9 +662,9 @@ a {
 
 .contact-icon {
   display: inline-flex;
-  width: 12px;
-  height: 12px;
-  flex: 0 0 12px;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
   align-items: center;
   justify-content: center;
   color: var(--muted);
@@ -675,7 +675,7 @@ a {
   height: 100%;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
