@@ -418,16 +418,25 @@ a {
 
 .quote-section {
   position: relative;
-  min-height: 120px;
+  height: 138px;
   overflow: hidden;
+}
+
+.quote-section img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 58%;
 }
 
 .quote-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(251, 248, 242, 0.82), rgba(251, 248, 242, 0.62), rgba(251, 248, 242, 0.78)),
-    linear-gradient(180deg, rgba(251, 248, 242, 0.22), rgba(251, 248, 242, 0.34));
+    linear-gradient(90deg, rgba(251, 248, 242, 0.54), rgba(251, 248, 242, 0.66), rgba(251, 248, 242, 0.48)),
+    linear-gradient(180deg, rgba(251, 248, 242, 0.12), rgba(251, 248, 242, 0.2));
 }
 
 .quote-section blockquote {
