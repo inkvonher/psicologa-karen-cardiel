@@ -1,0 +1,20 @@
+<svg width="1400" height="900" viewBox="120 180 620 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Karen Cardiel Psicóloga">
+  <g transform="translate(150 230)">
+    <text x="0" y="210" fill="#222525" font-family="Playfair Display, Georgia, serif" font-size="245" font-weight="600" letter-spacing="-18">K</text>
+    <text x="168" y="214" fill="#222525" font-family="Playfair Display, Georgia, serif" font-size="220" font-weight="500" letter-spacing="-18">C</text>
+
+    <path d="M40 286C126 244 222 242 319 279C375 300 413 303 450 272" stroke="#758B8A" stroke-width="12" stroke-linecap="round" opacity="0.92"/>
+    <path d="M44 323C136 278 218 282 307 314C370 336 419 341 476 300" stroke="#95ABA9" stroke-width="10" stroke-linecap="round" opacity="0.82"/>
+    <path d="M408 300C438 277 469 272 500 286C475 291 459 304 450 326" stroke="#758B8A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.86"/>
+
+    <path d="M290 84C325 26 380 18 396 73C355 69 319 82 290 84Z" stroke="#B09D81" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M392 76C446 42 493 58 488 112C447 102 419 86 392 76Z" stroke="#B09D81" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M382 91C375 125 349 145 316 154C322 121 342 100 382 91Z" stroke="#B09D81" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M384 91C409 115 420 146 413 181C388 161 376 130 384 91Z" stroke="#B09D81" stroke-width="7" stroke-linejoin="round"/>
+
+    <text x="0" y="430" fill="#222525" font-family="Playfair Display, Georgia, serif" font-size="82" font-weight="500" letter-spacing="2">Karen Cardiel</text>
+    <line x1="8" y1="472" x2="112" y2="472" stroke="#B8A991" stroke-width="2"/>
+    <text x="142" y="480" fill="#222525" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="500" letter-spacing="18">PSICÓLOGA</text>
+    <line x1="365" y1="472" x2="470" y2="472" stroke="#B8A991" stroke-width="2"/>
+  </g>
+</svg>
