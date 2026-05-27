@@ -629,19 +629,71 @@ a {
   font-weight: 600;
 }
 
+.footer-contact {
+  display: grid;
+  gap: 5px;
+}
+
+.footer-line,
 .footer-main a,
 .newsletter span,
 .footer-license {
   display: block;
-  margin-top: 5px;
   color: rgba(41, 41, 40, 0.72);
   font-size: 11px;
 }
 
 .footer-license {
-  margin-bottom: 7px;
   color: rgba(41, 41, 40, 0.58);
   font-weight: 600;
+}
+
+.footer-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.footer-line span:last-child {
+  min-width: 0;
+}
+
+.contact-icon {
+  display: inline-flex;
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+.contact-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-icon-license {
+  color: var(--gold);
+}
+
+.footer-whatsapp .contact-icon {
+  color: #5e8f7d;
+}
+
+.footer-instagram .contact-icon {
+  color: #c15b7f;
+}
+
+.footer-mail .contact-icon {
+  color: var(--blue);
 }
 
 .newsletter div {
