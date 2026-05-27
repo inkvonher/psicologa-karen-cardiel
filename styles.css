@@ -242,7 +242,7 @@ a {
   position: relative;
   min-height: 263px;
   display: grid;
-  grid-template-columns: 300px 1fr 270px;
+  grid-template-columns: 1fr 270px;
   gap: 34px;
   align-items: center;
   padding: 0 72px 0 135px;
@@ -259,24 +259,8 @@ a {
   opacity: 0.72;
 }
 
-.sunrise-arch {
-  position: relative;
-  width: 160px;
-  height: 270px;
-  margin: -18px 0 0;
-  overflow: hidden;
-  border-radius: 999px 999px 0 0;
-}
-
-.sunrise-arch img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 56%;
-}
-
 .about-copy {
-  margin-left: -70px;
+  margin-left: 0;
   padding-top: 8px;
 }
 
@@ -804,10 +788,6 @@ a {
 
   .about-section {
     padding: 46px 22px;
-  }
-
-  .sunrise-arch {
-    margin: 0 auto;
   }
 
   .about-copy {
