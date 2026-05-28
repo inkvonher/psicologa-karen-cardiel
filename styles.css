@@ -556,27 +556,74 @@ a {
   color: var(--blue);
   font-size: 22px;
   line-height: 1;
+  cursor: pointer;
+}
+
+.calendar-title button:disabled {
+  color: rgba(111, 105, 97, 0.28);
+  cursor: default;
 }
 
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+  gap: 4px;
   color: rgba(41, 41, 40, 0.72);
   font-size: 10px;
 }
 
-.calendar-grid span {
+.calendar-grid span,
+.calendar-grid button {
   display: grid;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   place-items: center;
   border-radius: 999px;
+}
+
+.calendar-grid button {
+  border: 0;
+  background: transparent;
+  color: rgba(41, 41, 40, 0.76);
+  font: inherit;
+  cursor: pointer;
+}
+
+.calendar-grid button:hover {
+  background: rgba(120, 148, 164, 0.14);
+  color: var(--ink);
+}
+
+.calendar-grid button:disabled {
+  color: rgba(111, 105, 97, 0.28);
+  cursor: default;
+}
+
+.calendar-grid button:disabled:hover {
+  background: transparent;
+}
+
+.calendar-grid .calendar-weekday {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.calendar-grid .today {
+  box-shadow: inset 0 0 0 1px rgba(120, 148, 164, 0.52);
 }
 
 .calendar-grid .active {
   background: var(--blue);
   color: #fff;
+  box-shadow: 0 8px 18px rgba(120, 148, 164, 0.24);
+}
+
+.calendar-selection {
+  min-height: 15px;
+  margin: 10px 0 0;
+  color: rgba(41, 41, 40, 0.64);
+  font-size: 10px;
+  line-height: 1.35;
 }
 
 .testimonials-section {
@@ -631,7 +678,7 @@ a {
 
 .footer-contact {
   display: grid;
-  gap: 5px;
+  gap: 7px;
 }
 
 .footer-line,
@@ -651,7 +698,7 @@ a {
 .footer-line {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   width: fit-content;
   max-width: 100%;
 }
@@ -662,37 +709,51 @@ a {
 
 .contact-icon {
   display: inline-flex;
-  width: 14px;
-  height: 14px;
-  flex: 0 0 14px;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  background: rgba(111, 105, 97, 0.1);
   color: var(--muted);
 }
 
 .contact-icon svg {
-  width: 100%;
-  height: 100%;
+  width: 15px;
+  height: 15px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 2.1;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .contact-icon-license {
+  background: rgba(181, 161, 126, 0.16);
   color: var(--gold);
 }
 
 .footer-whatsapp .contact-icon {
-  color: #5e8f7d;
+  background: #3f9f72;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(63, 159, 114, 0.22);
+}
+
+.footer-whatsapp .contact-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  stroke: none;
 }
 
 .footer-instagram .contact-icon {
+  background: rgba(193, 91, 127, 0.14);
   color: #c15b7f;
 }
 
 .footer-mail .contact-icon {
+  background: rgba(120, 148, 164, 0.15);
   color: var(--blue);
 }
 
@@ -719,6 +780,21 @@ a {
   border-radius: 4px;
   background: var(--blue);
   color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.newsletter button:hover {
+  background: var(--blue-dark);
+}
+
+.newsletter-status {
+  min-height: 14px;
+  margin: 7px 0 0;
+  color: rgba(41, 41, 40, 0.58);
+  font-size: 10px;
+  line-height: 1.3;
 }
 
 .footer-bar {

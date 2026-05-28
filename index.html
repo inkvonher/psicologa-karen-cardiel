@@ -144,21 +144,20 @@
               <option>Talleres y cursos</option>
               <option>Otros motivos</option>
             </select>
+            <input name="fecha" type="hidden" />
             <input name="horario" type="text" placeholder="Horario preferido" required />
             <button type="submit">Enviar por WhatsApp <span>◌</span></button>
           </form>
 
           <aside class="calendar-card reveal">
             <h3>Elige tu mejor día</h3>
-            <div class="calendar-title"><button aria-label="Mes anterior">‹</button><strong>Mayo 2021</strong><button aria-label="Mes siguiente">›</button></div>
-            <div class="calendar-grid">
-              <span>D</span><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span>
-              <span></span><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span>
-              <span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
-              <span>11</span><span>12</span><span>13</span><span class="active">14</span><span>15</span><span>16</span><span>17</span>
-              <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
-              <span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>30</span>
+            <div class="calendar-title">
+              <button type="button" class="calendar-prev" aria-label="Mes anterior">‹</button>
+              <strong class="calendar-month" aria-live="polite"></strong>
+              <button type="button" class="calendar-next" aria-label="Mes siguiente">›</button>
             </div>
+            <div class="calendar-grid" aria-label="Calendario de citas"></div>
+            <p class="calendar-selection" aria-live="polite">Selecciona una fecha disponible.</p>
           </aside>
         </section>
 
@@ -199,8 +198,7 @@
             <a class="footer-line footer-whatsapp" href="https://wa.me/522211655438" target="_blank" rel="noreferrer">
               <span class="contact-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-                  <path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.33 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01Z" />
-                  <path d="M8.8 8.8c.2-.45.39-.47.72-.48h.6c.2 0 .53-.07.8.53.28.6.95 2.1 1.03 2.25.08.15.14.33.03.53-.11.2-.16.33-.33.52-.17.2-.35.45-.5.6-.17.17-.36.36-.15.72.2.35.9 1.5 1.94 2.43 1.34 1.2 2.47 1.58 2.83 1.74.35.15.56.13.76-.08.2-.2.84-.98 1.08-1.32.24-.33.5-.28.84-.17.34.11 2.16 1.02 2.54 1.2.38.18.64.28.73.44.1.16.1.92-.22 1.81-.32.89-1.3 1.72-2.23 1.81-.92.1-1.86.14-3.2-.35-1.34-.5-2.95-1.23-4.77-3.04-1.82-1.81-2.86-4.05-3.25-5.02-.39-.97-.28-1.82-.08-2.26Z" />
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.74.46 3.44 1.33 4.94L2.05 22l5.25-1.38a9.88 9.88 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.86 9.86 0 0 0 12.04 2Zm5.78 14.02c-.24.68-1.2 1.28-1.7 1.33-.44.04-1 .06-1.62-.1-.37-.1-.85-.27-1.47-.53-2.58-1.11-4.26-3.7-4.39-3.87-.12-.17-1.05-1.4-1.05-2.68 0-1.27.66-1.89.9-2.15.23-.25.51-.32.68-.32h.49c.16.01.37.02.56.43.22.5.75 1.78.82 1.91.06.13.1.29.02.46-.09.17-.13.28-.26.43-.13.15-.27.33-.39.45-.13.13-.27.27-.12.53.15.26.66 1.09 1.41 1.76.97.86 1.79 1.13 2.05 1.26.26.13.41.11.56-.07.16-.18.65-.76.82-1.02.17-.26.35-.22.59-.13.24.08 1.54.73 1.8.86.27.13.45.19.52.3.06.12.06.67-.18 1.35Z" />
                 </svg>
               </span>
               <span>+52 221 165 5438</span>
@@ -225,13 +223,14 @@
               <span>karencardiel.psicologa@gmail.com</span>
             </a>
           </div>
-          <form class="newsletter">
+          <form id="newsletter-form" class="newsletter">
             <label for="newsletter-email">Suscríbete a mi espacio</label>
             <span>Recibe contenidos que te acompañan en tu proceso de crecimiento.</span>
             <div>
-              <input id="newsletter-email" type="email" placeholder="Tu correo electrónico" />
-              <button type="button" aria-label="Enviar">→</button>
+              <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="Tu correo electrónico" required />
+              <button type="submit" aria-label="Enviar">→</button>
             </div>
+            <p class="newsletter-status" aria-live="polite"></p>
           </form>
         </div>
         <div class="footer-bar">
