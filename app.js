@@ -1,5 +1,10 @@
 const WHATSAPP_NUMBER = "522211655438";
 
+const footerYear = document.querySelector("#footer-year");
+if (footerYear) {
+  footerYear.textContent = new Date().getFullYear();
+}
+
 const form = document.querySelector("#appointment-form");
 const newsletterForm = document.querySelector("#newsletter-form");
 const newsletterStatus = newsletterForm.querySelector(".newsletter-status");

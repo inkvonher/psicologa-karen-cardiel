@@ -400,6 +400,76 @@ a {
   line-height: 1.42;
 }
 
+.why-section {
+  padding: 30px 84px 34px;
+  background: var(--paper);
+  text-align: center;
+}
+
+.why-section h2 {
+  margin: 11px 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 31px;
+  font-weight: 500;
+  line-height: 1.04;
+}
+
+.why-section h2 em {
+  color: var(--blue);
+  font-style: italic;
+}
+
+.why-intro {
+  width: min(560px, 100%);
+  margin: 14px auto 0;
+  color: rgba(41, 41, 40, 0.74);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.why-card {
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-radius: 11px;
+  background: rgba(245, 239, 231, 0.6);
+  box-shadow: 0 14px 34px rgba(41, 41, 40, 0.06);
+  padding: 18px 14px 16px;
+  text-align: center;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 48px rgba(41, 41, 40, 0.1);
+}
+
+.why-card span {
+  display: block;
+  color: var(--blue);
+  font-size: 28px;
+  line-height: 1;
+}
+
+.why-card h3 {
+  margin: 10px 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.why-card p {
+  margin: 8px 0 0;
+  color: rgba(41, 41, 40, 0.7);
+  font-size: 10.5px;
+  line-height: 1.45;
+}
+
 .quote-section {
   position: relative;
   height: 138px;
@@ -809,6 +879,74 @@ a {
   font-size: 10px;
 }
 
+.footer-bar a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-bar a:hover {
+  color: #fff;
+}
+
+.legal-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 32px 72px;
+  color: var(--ink);
+}
+
+.legal-back {
+  display: inline-block;
+  margin-bottom: 26px;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.legal-page h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.legal-updated {
+  margin: 8px 0 28px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.legal-page h2 {
+  margin: 30px 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 23px;
+  font-weight: 500;
+  color: var(--blue-dark);
+}
+
+.legal-page p {
+  margin: 12px 0 0;
+  color: rgba(41, 41, 40, 0.82);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.legal-page a {
+  color: var(--blue-dark);
+  text-decoration: underline;
+}
+
+.legal-note {
+  margin-top: 36px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--gold);
+  background: rgba(181, 161, 126, 0.08);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
 .whatsapp-float {
   position: fixed;
   z-index: 50;
@@ -931,6 +1069,14 @@ a {
   }
 
   .services-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .why-section {
+    padding: 40px 22px;
+  }
+
+  .why-grid {
     grid-template-columns: 1fr 1fr;
   }
 
