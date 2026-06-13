@@ -5,6 +5,34 @@ if (footerYear) {
   footerYear.textContent = new Date().getFullYear();
 }
 
+const cookieBanner = document.querySelector("#cookie-banner");
+if (cookieBanner) {
+  let stored = null;
+  try {
+    stored = localStorage.getItem("cookie-consent");
+  } catch (error) {
+    stored = null;
+  }
+
+  if (!stored) {
+    cookieBanner.classList.add("is-visible");
+  }
+
+  const closeBanner = (value) => {
+    try {
+      localStorage.setItem("cookie-consent", value);
+    } catch (error) {
+      /* almacenamiento no disponible */
+    }
+    cookieBanner.classList.remove("is-visible");
+  };
+
+  const acceptButton = document.querySelector("#cookie-accept");
+  const rejectButton = document.querySelector("#cookie-reject");
+  if (acceptButton) acceptButton.addEventListener("click", () => closeBanner("accepted"));
+  if (rejectButton) rejectButton.addEventListener("click", () => closeBanner("rejected"));
+}
+
 const form = document.querySelector("#appointment-form");
 const newsletterForm = document.querySelector("#newsletter-form");
 const newsletterStatus = newsletterForm.querySelector(".newsletter-status");
