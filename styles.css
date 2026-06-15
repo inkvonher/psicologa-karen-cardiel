@@ -889,6 +889,23 @@ a {
   color: #fff;
 }
 
+.footer-credit {
+  padding: 6px 0 9px;
+  text-align: center;
+  background: var(--paper);
+}
+
+.footer-credit a {
+  font-size: 10px;
+  color: rgba(111, 105, 97, 0.4);
+  letter-spacing: 0.03em;
+  transition: color 200ms ease;
+}
+
+.footer-credit a:hover {
+  color: var(--blue);
+}
+
 .legal-page {
   max-width: 720px;
   margin: 0 auto;
