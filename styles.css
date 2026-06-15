@@ -897,7 +897,7 @@ a {
 
 .footer-credit a {
   font-size: 10px;
-  color: rgba(111, 105, 97, 0.4);
+  color: rgba(111, 105, 97, 0.65);
   letter-spacing: 0.03em;
   transition: color 200ms ease;
 }
