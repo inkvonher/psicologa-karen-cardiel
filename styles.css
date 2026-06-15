@@ -890,20 +890,39 @@ a {
 }
 
 .footer-credit {
-  padding: 6px 0 9px;
+  padding: 8px 0 12px;
   text-align: center;
   background: var(--paper);
 }
 
 .footer-credit a {
-  font-size: 10px;
-  color: rgba(111, 105, 97, 0.65);
-  letter-spacing: 0.03em;
+  display: inline-block;
+  color: rgba(82, 82, 91, 0.72);
   transition: color 200ms ease;
 }
 
 .footer-credit a:hover {
-  color: var(--blue);
+  color: #d6ad4a;
+}
+
+.footer-credit-label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.footer-credit-url {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(214, 173, 74, 0.8);
+  transition: color 200ms ease;
+}
+
+.footer-credit a:hover .footer-credit-url {
+  color: #d6ad4a;
 }
 
 .legal-page {
