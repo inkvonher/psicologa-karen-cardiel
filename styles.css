@@ -969,16 +969,16 @@ a {
 
 .footer-credit a {
   display: inline-block;
-  color: rgba(82, 82, 91, 0.72);
+  color: var(--gold);
   transition: color 200ms ease;
   font-size: 9px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 
 .footer-credit a:hover {
-  color: #d6ad4a;
+  color: var(--blue-dark);
 }
 
 .legal-page {
