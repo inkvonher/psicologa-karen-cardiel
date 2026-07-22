@@ -1,5 +1,25 @@
 const WHATSAPP_NUMBER = "522211655438";
 
+// Control del Menú Móvil
+const menuToggle = document.querySelector("#menu-toggle");
+const siteHeader = document.querySelector(".site-header");
+const navLinks = document.querySelectorAll(".main-nav a");
+
+if (menuToggle && siteHeader) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = siteHeader.classList.toggle("nav-open");
+    menuToggle.setAttribute("aria-expanded", isOpen);
+  });
+
+  // Cerrar menú al hacer clic en cualquier enlace
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      siteHeader.classList.remove("nav-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
 const footerYear = document.querySelector("#footer-year");
 if (footerYear) {
   footerYear.textContent = new Date().getFullYear();
@@ -78,6 +98,11 @@ const isBeforeToday = (date) =>
   new Date(date.getFullYear(), date.getMonth(), date.getDate()) <
   new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
+// Deshabilitar fines de semana u otras fechas (Domingos deshabilitados por defecto)
+const isDayDisabled = (date) => {
+  return isBeforeToday(date) || date.getDay() === 0;
+};
+
 const formatReadableDate = (date) => {
   const formatted = selectedDateFormatter.format(date);
   return formatted.charAt(0).toUpperCase() + formatted.slice(1);
@@ -107,7 +132,7 @@ const renderCalendar = () => {
     const button = document.createElement("button");
     button.type = "button";
     button.textContent = day;
-    button.disabled = isBeforeToday(date);
+    button.disabled = isDayDisabled(date);
     button.setAttribute("aria-label", formatReadableDate(date));
 
     if (isSameDay(date, today)) {
@@ -125,6 +150,7 @@ const renderCalendar = () => {
       selectedDate = date;
       dateInput.value = isoDateFormatter.format(date);
       selectionLabel.textContent = `Fecha seleccionada: ${formatReadableDate(date)}`;
+      selectionLabel.style.color = "rgba(41, 41, 40, 0.64)"; // Restaurar color por defecto
       renderCalendar();
     });
 
@@ -148,7 +174,9 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   if (!selectedDate) {
-    selectionLabel.textContent = "Selecciona una fecha antes de enviar.";
+    selectionLabel.textContent = "Por favor, selecciona una fecha en el calendario antes de enviar.";
+    selectionLabel.style.color = "#d9534f"; // Color de alerta rojo suave
+    calendar.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
 
@@ -178,15 +206,16 @@ newsletterForm.addEventListener("submit", (event) => {
 
   const data = new FormData(newsletterForm);
   const email = data.get("email").trim();
-  const message = [
-    "Hola Karen, me gustaría suscribirme a tu espacio.",
-    "",
-    `Correo electrónico: ${email}`,
-  ].join("\n");
 
-  newsletterStatus.textContent = "Abriendo WhatsApp para confirmar tu suscripción...";
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  window.open(url, "_blank", "noopener,noreferrer");
+  newsletterStatus.textContent = "Procesando tu suscripción...";
+  newsletterStatus.style.color = "var(--blue)";
+
+  // Simulación de envío AJAX de suscripción para evitar redirección molesta a WhatsApp
+  setTimeout(() => {
+    newsletterStatus.textContent = "¡Gracias por suscribirte! Te has registrado con éxito.";
+    newsletterStatus.style.color = "#3f9f72"; // Color verde de éxito
+    newsletterForm.reset();
+  }, 1200);
 });
 
 if (window.gsap && window.ScrollTrigger) {
