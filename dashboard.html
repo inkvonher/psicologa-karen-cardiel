@@ -382,16 +382,9 @@
               <h3>Lista de Suscriptores</h3>
             </div>
             <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Estos son los correos registrados en tu web.</p>
-            <div style="max-height: 380px; overflow-y: auto;">
-              <table class="data-table" style="font-size: 12px;">
-                <thead>
-                  <tr>
-                    <th>Email</th>
-                  </tr>
-                </thead>
-                <tbody id="newsletter-subscribers-list">
-                </tbody>
-              </table>
+            <div style="max-height: 380px; overflow-y: auto; padding-right: 4px;">
+              <div id="newsletter-subscribers-list" class="subscribers-list">
+              </div>
             </div>
           </div>
         </div>
@@ -1561,16 +1554,40 @@
 
       // 12. NEWSLETTER
       window.renderSubscribersList = function() {
-        const tbody = document.getElementById("newsletter-subscribers-list");
-        if (!tbody) return;
-        tbody.innerHTML = "";
+        const listContainer = document.getElementById("newsletter-subscribers-list");
+        if (!listContainer) return;
+        listContainer.innerHTML = "";
+        
         if (subscribers.length === 0) {
-          tbody.innerHTML = `<tr><td>Sin correos registrados.</td></tr>`;
+          listContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">Sin correos registrados.</div>`;
           return;
         }
+        
         subscribers.forEach(s => {
-          tbody.innerHTML += `<tr><td>${s.email}</td></tr>`;
+          const initial = s.email.charAt(0).toUpperCase();
+          const item = document.createElement("div");
+          item.className = "subscriber-item";
+          item.innerHTML = `
+            <div class="subscriber-info">
+              <div class="subscriber-avatar">${initial}</div>
+              <span class="subscriber-email" title="${s.email}">${s.email}</span>
+            </div>
+            <button class="subscriber-action-btn" onclick="deleteSubscriber('${s.email}')" title="Eliminar suscriptor">&times;</button>
+          `;
+          listContainer.appendChild(item);
         });
+      };
+
+      window.deleteSubscriber = async function(email) {
+        if (confirm(`¿Deseas eliminar a ${email} de la lista de suscriptores?`)) {
+          subscribers = subscribers.filter(s => s.email !== email);
+          if (supabase) {
+            try { await supabase.from("suscriptores").delete().eq("email", email); } catch(e){}
+          }
+          saveDataLocally();
+          renderSubscribersList();
+          updateSummaryStats();
+        }
       };
 
       const newsletterSendForm = document.getElementById("newsletter-send-form");

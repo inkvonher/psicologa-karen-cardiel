@@ -861,11 +861,12 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   overflow: hidden;
+  background: white;
 }
 
 .editor-toolbar {
-  background-color: var(--dashboard-bg);
-  padding: 8px;
+  background-color: #faf9f6;
+  padding: 10px;
   border-bottom: 1px solid var(--border-color);
   display: flex;
   gap: 8px;
@@ -874,15 +875,19 @@ body {
 .editor-btn {
   background: white;
   border: 1px solid var(--border-color);
-  padding: 6px 12px;
-  font-size: 12px;
-  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-weight: 500;
+  transition: var(--transition);
+  color: var(--text-dark);
 }
 
 .editor-btn:hover {
-  background: var(--border-color);
+  background: var(--dashboard-bg);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
 }
 
 .editor-textarea {
@@ -894,6 +899,77 @@ body {
   font-size: 14px;
   outline: none;
   resize: vertical;
+  background: transparent;
+}
+
+/* Modern Subscriber List Items */
+.subscribers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.subscriber-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background-color: var(--dashboard-bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.subscriber-item:hover {
+  border-color: var(--accent-blue);
+  background-color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.subscriber-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.subscriber-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--accent-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.subscriber-email {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subscriber-action-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: var(--transition);
+}
+
+.subscriber-action-btn:hover {
+  color: var(--danger);
+  transform: scale(1.1);
 }
 
 /* Responsive adjustments and premium mobile styling */
@@ -1012,6 +1088,11 @@ body {
   /* Login overlay */
   .login-card {
     padding: 24px 16px;
+  }
+
+  /* Compact editor for mobile */
+  .editor-textarea {
+    min-height: 180px;
   }
 }
 
