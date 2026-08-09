@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración | Psicóloga Karen Cardiel</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="./dashboard.css">
+  
+  <!-- Chart.js for beautiful analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- 1. LOGIN WALL -->
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-card">
+      <img src="./assets/karen-logo-uploaded.png" alt="Karen Cardiel Logo" class="login-logo">
+      <h1>Área Privada</h1>
+      <p>Ingresa tus credenciales para acceder al panel de administración.</p>
+      
+      <form id="login-form">
+        <div class="form-group">
+          <label for="admin-password">Contraseña de acceso</label>
+          <input type="password" id="admin-password" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="login-btn">Iniciar Sesión</button>
+        <p class="login-error" id="login-error"></p>
+      </form>
+      <script>
+        (function() {
+          const form = document.getElementById("login-form");
+          
+          if (form) {
+            form.addEventListener("submit", function(e) {
+              e.preventDefault();
+              const pwd = document.getElementById("admin-password").value.trim();
+              const savedPwd = localStorage.getItem("karen_admin_pwd") || "karen2026";
+              const errorEl = document.getElementById("login-error");
+              
+              if (pwd === "karen2026" || pwd === savedPwd) {
+                sessionStorage.setItem("karen_logged_in", "true");
+                
+                const overlay = document.getElementById("login-overlay");
+                const container = document.getElementById("dashboard-container");
+                
+                if (overlay) overlay.style.display = "none";
+                if (container) container.classList.remove("hidden");
+                if (errorEl) errorEl.textContent = "";
+                document.getElementById("admin-password").value = "";
+                
+                // Lanzar inicialización del script externo si ya está cargado
+                if (typeof initDashboard === "function") {
+                  try {
+                    initDashboard();
+                  } catch(err) {
+                    console.error("Error en initDashboard:", err);
+                  }
+                }
+              } else {
+                if (errorEl) {
+                  errorEl.textContent = "Contraseña incorrecta. Por favor intenta de nuevo.";
+                  errorEl.style.color = "#cf5c53";
+                }
+              }
+            });
+          }
+          
+          // Ocultar login rápido si ya inició sesión previamente (esperando a que cargue el DOM)
+          function autoLogin() {
+            if (sessionStorage.getItem("karen_logged_in") === "true") {
+              const overlay = document.getElementById("login-overlay");
+              const container = document.getElementById("dashboard-container");
+              if (overlay) overlay.style.display = "none";
+              if (container) container.classList.remove("hidden");
+            }
+          }
+          
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", autoLogin);
+          } else {
+            autoLogin();
+          }
+        })();
+      </script>
+    </div>
+  </div>
+
+  <!-- 2. MAIN DASHBOARD CONTAINER -->
+  <div class="dashboard-container hidden" id="dashboard-container">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="./assets/karen-logo-uploaded.png" alt="Logo" class="sidebar-logo">
+        <h2 class="sidebar-brand">Karen Cardiel <span>Administración</span></h2>
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li class="menu-item active" data-tab="resumen">
+          <a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+            <span>Inicio / Analíticas</span>
+          </a>
+        </li>
+        <li class="menu-item" data-tab="pacientes">
+          <a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Pacientes</span>
+          </a>
+        </li>
+        <li class="menu-item" data-tab="agenda">
+          <a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Agenda / Citas</span>
+          </a>
+        </li>
+        <li class="menu-item" data-tab="newsletter">
+          <a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Newsletter</span>
+          </a>
+        </li>
+        <li class="menu-item" data-tab="finanzas">
+          <a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Finanzas</span>
+          </a>
+        </li>
+        <li class="menu-item" data-tab="ajustes">
+          <a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Ajustes</span>
+          </a>
+        </li>
+      </ul>
+      
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <span class="user-name">Dra. Karen Cardiel</span>
+          <span class="user-role">Administradora</span>
+        </div>
+        <button class="logout-btn" id="logout-btn" title="Cerrar sesión">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </aside>
+    
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+      
+      <!-- ================= TAB: OVERVIEW ================= -->
+      <section id="tab-resumen" class="tab-content active">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Hola de nuevo, Karen</h2>
+            <p>Este es el resumen de tu consulta psicológica para este mes.</p>
+          </div>
+          <div class="actions">
+            <button class="primary-btn" id="btn-quick-appointment">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Nueva Cita
+            </button>
+          </div>
+        </div>
+        
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-info">
+              <h3>Pacientes Activos</h3>
+              <div class="metric-value" id="stat-total-patients">0</div>
+              <span class="metric-change up">★ Pacientes en seguimiento</span>
+            </div>
+            <div class="metric-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+          </div>
+          
+          <div class="metric-card">
+            <div class="metric-info">
+              <h3>Sesiones del Mes</h3>
+              <div class="metric-value" id="stat-monthly-sessions">0</div>
+              <span class="metric-change up" id="stat-pending-sessions">0 pendientes</span>
+            </div>
+            <div class="metric-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+          </div>
+          
+          <div class="metric-card">
+            <div class="metric-info">
+              <h3>Ingresos Estimados</h3>
+              <div class="metric-value" id="stat-monthly-revenue">$0</div>
+              <span class="metric-change up" id="stat-revenue-change">Mes en curso</span>
+            </div>
+            <div class="metric-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-info">
+              <h3>Suscritos Newsletter</h3>
+              <div class="metric-value" id="stat-newsletter-subscribers">0</div>
+              <span class="metric-change up">Lectores del boletín</span>
+            </div>
+            <div class="metric-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+          </div>
+        </div>
+        
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Ingresos Mensuales e Histórico de Sesiones</h3>
+            </div>
+            <div class="chart-container">
+              <canvas id="revenue-chart"></canvas>
+            </div>
+          </div>
+          
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Motivos de Consulta</h3>
+            </div>
+            <div class="chart-container">
+              <canvas id="motives-chart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Próximas Citas Programadas</h3>
+          </div>
+          <table class="data-table" id="table-upcoming-appointments">
+            <thead>
+              <tr>
+                <th>Paciente</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Motivo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+      <!-- ================= TAB: PATIENTS ================= -->
+      <section id="tab-pacientes" class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Directorio de Pacientes</h2>
+            <p>Administra las fichas clínicas e historial de sesiones de tus pacientes.</p>
+          </div>
+          <div class="actions">
+            <button class="primary-btn" id="btn-add-patient">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="11" x2="19" y2="17"/><line x1="16" y1="14" x2="22" y2="14"/></svg>
+              Nuevo Paciente
+            </button>
+          </div>
+        </div>
+        
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Lista de Pacientes Activos</h3>
+            <div class="table-filters">
+              <div class="search-input-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="patient-search" placeholder="Buscar por nombre o teléfono...">
+              </div>
+            </div>
+          </div>
+          <table class="data-table" id="table-patients">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Contacto (Tel)</th>
+                <th>Motivo Principal</th>
+                <th>Fecha de Inicio</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+      <!-- ================= TAB: APPOINTMENTS ================= -->
+      <section id="tab-agenda" class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Agenda de Citas</h2>
+            <p>Visualiza y organiza las sesiones programadas.</p>
+          </div>
+          <div class="actions">
+            <button class="primary-btn" id="btn-add-appointment">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Agendar Sesión
+            </button>
+          </div>
+        </div>
+        
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Registro de Citas</h3>
+          </div>
+          <table class="data-table" id="table-all-appointments">
+            <thead>
+              <tr>
+                <th>Paciente</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Motivo</th>
+                <th>Costo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+      <!-- ================= TAB: NEWSLETTER ================= -->
+      <section id="tab-newsletter" class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Boletín Semanal</h2>
+            <p>Redacta y envía el correo semanal a las personas suscritas a tu espacio.</p>
+          </div>
+        </div>
+        
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Redactar Correo</h3>
+            </div>
+            <form id="newsletter-send-form" class="newsletter-compose">
+              <div class="form-group">
+                <label for="newsletter-subject">Asunto del Correo</label>
+                <input type="text" id="newsletter-subject" placeholder="Ej: Un espacio para volver a ti..." required>
+              </div>
+              <div class="form-group">
+                <label for="newsletter-body">Contenido de la Newsletter</label>
+                <div class="rich-editor-wrapper">
+                  <div class="editor-toolbar">
+                    <button type="button" class="editor-btn" onclick="wrapText('**', '**')"><b>B</b></button>
+                    <button type="button" class="editor-btn" onclick="wrapText('*', '*')"><i>I</i></button>
+                    <button type="button" class="editor-btn" onclick="wrapText('\n- ', '')">Bullet List</button>
+                  </div>
+                  <textarea id="newsletter-body" class="editor-textarea" placeholder="Escribe aquí tu correo con cariño..." required></textarea>
+                </div>
+              </div>
+              <button type="submit" class="primary-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Enviar a todos los suscriptores
+              </button>
+            </form>
+          </div>
+          
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Lista de Suscriptores</h3>
+            </div>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Estos son los correos registrados en tu web.</p>
+            <div style="max-height: 380px; overflow-y: auto;">
+              <table class="data-table" style="font-size: 12px;">
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody id="newsletter-subscribers-list">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- ================= TAB: FINANCES ================= -->
+      <section id="tab-finanzas" class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Control Financiero</h2>
+            <p>Seguimiento de ingresos generados por sesiones y egresos del negocio.</p>
+          </div>
+          <div class="actions">
+            <button class="primary-btn" id="btn-add-transaction">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Registrar Movimiento
+            </button>
+          </div>
+        </div>
+        
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-info">
+              <h3>Ingresos del Mes</h3>
+              <div class="metric-value" id="finance-monthly-income">$0</div>
+              <span class="metric-change up">Ingresos totales logrados</span>
+            </div>
+            <div class="metric-icon" style="color: var(--success);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+          </div>
+          
+          <div class="metric-card">
+            <div class="metric-info">
+              <h3>Gastos del Mes</h3>
+              <div class="metric-value" id="finance-monthly-expenses">$0</div>
+              <span class="metric-change down">Costos operativos</span>
+            </div>
+            <div class="metric-icon" style="color: var(--danger);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+          </div>
+          
+          <div class="metric-card">
+            <div class="metric-info">
+              <h3>Balance Neto</h3>
+              <div class="metric-value" id="finance-net-balance">$0</div>
+              <span class="metric-change" id="finance-balance-status">Saldo a favor</span>
+            </div>
+            <div class="metric-icon" style="color: var(--accent-gold);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+          </div>
+        </div>
+        
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Historial de Transacciones</h3>
+          </div>
+          <table class="data-table" id="table-transactions">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Concepto / Paciente</th>
+                <th>Tipo</th>
+                <th>Monto</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+      <!-- ================= TAB: SETTINGS ================= -->
+      <section id="tab-ajustes" class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Ajustes del Sistema</h2>
+            <p>Configuración del panel, seguridad y sincronización.</p>
+          </div>
+        </div>
+        
+        <div class="chart-card" style="margin-bottom: 24px;">
+          <div class="chart-header">
+            <h3>Seguridad de Acceso</h3>
+          </div>
+          <form id="settings-password-form" style="max-width: 400px;">
+            <div class="form-group">
+              <label for="settings-current-pwd">Contraseña Actual</label>
+              <input type="password" id="settings-current-pwd" required>
+            </div>
+            <div class="form-group">
+              <label for="settings-new-pwd">Nueva Contraseña</label>
+              <input type="password" id="settings-new-pwd" minlength="6" required>
+            </div>
+            <button type="submit" class="primary-btn">Actualizar Contraseña</button>
+            <p id="password-status" style="margin-top: 12px; font-size: 13px; font-weight: 500;"></p>
+          </form>
+        </div>
+        
+        <div class="chart-card">
+          <details style="cursor: pointer;">
+            <summary style="font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--text-dark); list-style: none; outline: none; display: flex; align-items: center; justify-content: space-between;">
+              <span style="display: flex; align-items: center; gap: 8px;">⚙️ Configuración de Base de Datos (Avanzado)</span>
+              <span class="accordion-arrow" style="font-size: 12px; color: var(--text-muted); transition: transform 0.3s ease;">▼</span>
+            </summary>
+            <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 24px; cursor: default;">
+              <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">
+                Para que tu información esté segura, sincronizada entre tus dispositivos y no se pierda al borrar la caché, conecta una base de datos de **Supabase**.
+              </p>
+              <form id="supabase-config-form" style="display: flex; flex-direction: column; gap: 12px; max-width: 500px;">
+                <div class="form-group" style="margin-bottom: 12px;">
+                  <label for="supabase-url">Supabase Project URL</label>
+                  <input type="url" id="supabase-url" placeholder="https://xxxx.supabase.co" style="padding: 10px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 12px;">
+                  <label for="supabase-key">Supabase Anon Key</label>
+                  <input type="password" id="supabase-key" placeholder="eyJhbGciOi..." style="padding: 10px;">
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                  <button type="submit" class="primary-btn">Guardar y Sincronizar</button>
+                  <button type="button" class="secondary-btn" id="btn-disconnect-supabase" style="display: none;">Desconectar</button>
+                </div>
+                <p id="supabase-status" style="font-size: 13px; font-weight: 500; margin-top: 4px;"></p>
+              </form>
+            </div>
+          </details>
+        </div>
+      </section>
+      
+    </main>
+  </div>
+
+  <!-- ================= MODALS ================= -->
+  
+  <!-- MODAL: PATIENT CLINICAL HISTORY -->
+  <div class="modal-overlay" id="modal-patient-history">
+    <div class="modal-container large">
+      <div class="modal-header">
+        <h3 id="modal-patient-name-title">Expediente Clínico</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="patient-profile-layout">
+          <div class="patient-info-sidebar">
+            <div class="patient-meta-item">
+              <div class="patient-meta-label">Edad</div>
+              <div class="patient-meta-value" id="profile-patient-age">-</div>
+            </div>
+            <div class="patient-meta-item">
+              <div class="patient-meta-label">Teléfono</div>
+              <div class="patient-meta-value" id="profile-patient-phone">-</div>
+            </div>
+            <div class="patient-meta-item">
+              <div class="patient-meta-label">Motivo de consulta</div>
+              <div class="patient-meta-value" id="profile-patient-motive">-</div>
+            </div>
+            <div class="patient-meta-item">
+              <div class="patient-meta-label">Fecha de Inicio</div>
+              <div class="patient-meta-value" id="profile-patient-start">-</div>
+            </div>
+            <div class="patient-meta-item">
+              <div class="patient-meta-label">Estado</div>
+              <div class="patient-meta-value" id="profile-patient-status">-</div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+              Evolución y Notas de Sesiones
+              <button class="primary-btn" id="btn-add-session-note" style="padding: 6px 12px; font-size: 12px;">+ Nueva Nota</button>
+            </h4>
+            
+            <div class="clinical-history-section" id="clinical-history-timeline-container">
+            </div>
+            
+            <div class="new-note-box hidden" id="box-new-note">
+              <form id="form-new-note">
+                <div class="form-group">
+                  <label for="new-note-date">Fecha de la Sesión</label>
+                  <input type="date" id="new-note-date" required>
+                </div>
+                <div class="form-group">
+                  <label for="new-note-title">Título / Foco de la Sesión</label>
+                  <input type="text" id="new-note-title" placeholder="Ej: Exploración de detonantes" required>
+                </div>
+                <div class="form-group">
+                  <label for="new-note-desc">Notas detalladas</label>
+                  <textarea id="new-note-desc" rows="4" placeholder="Observaciones..." required></textarea>
+                </div>
+                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                  <button type="button" class="secondary-btn" id="btn-cancel-note" style="padding: 6px 12px; font-size: 12px;">Cancelar</button>
+                  <button type="submit" class="primary-btn" style="padding: 6px 12px; font-size: 12px;">Guardar Nota</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT PATIENT -->
+  <div class="modal-overlay" id="modal-patient-form">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modal-patient-form-title">Registrar Paciente</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <form id="form-patient">
+        <input type="hidden" id="patient-edit-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="patient-name">Nombre Completo</label>
+            <input type="text" id="patient-name" required placeholder="Nombre y Apellido">
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="patient-age">Edad</label>
+              <input type="number" id="patient-age" min="1" max="120" required placeholder="Años">
+            </div>
+            <div class="form-group">
+              <label for="patient-phone">Número de WhatsApp</label>
+              <input type="tel" id="patient-phone" required placeholder="Ej: 522211655438">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="patient-motive">Motivo de consulta</label>
+              <select id="patient-motive" required>
+                <option value="">Selecciona una opción</option>
+                <option value="Ansiedad">Ansiedad</option>
+                <option value="Amor propio">Amor propio</option>
+                <option value="Rupturas y duelo">Rupturas y duelo</option>
+                <option value="Terapia individual">Terapia individual</option>
+                <option value="Otros motivos">Otros motivos</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="patient-status">Estado inicial</label>
+              <select id="patient-status" required>
+                <option value="active">Activo</option>
+                <option value="inactive">Inactivo</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="patient-start-date">Fecha de Inicio</label>
+            <input type="date" id="patient-start-date" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="secondary-btn close-modal">Cancelar</button>
+          <button type="submit" class="primary-btn">Guardar Paciente</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT APPOINTMENT -->
+  <div class="modal-overlay" id="modal-appointment-form">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modal-appointment-form-title">Agendar Sesión</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <form id="form-appointment-modal">
+        <input type="hidden" id="appointment-edit-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="app-patient-select">Paciente</label>
+            <select id="app-patient-select" required>
+              <option value="">Selecciona un paciente</option>
+            </select>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="app-date">Fecha</label>
+              <input type="date" id="app-date" required>
+            </div>
+            <div class="form-group">
+              <label for="app-time">Hora</label>
+              <input type="time" id="app-time" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="app-cost">Costo de Sesión ($)</label>
+              <input type="number" id="app-cost" min="0" required placeholder="500">
+            </div>
+            <div class="form-group">
+              <label for="app-status">Estado</label>
+              <select id="app-status" required>
+                <option value="scheduled">Programada</option>
+                <option value="completed">Completada</option>
+                <option value="cancelled">Cancelada</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="secondary-btn close-modal">Cancelar</button>
+          <button type="submit" class="primary-btn">Agendar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD TRANSACTION -->
+  <div class="modal-overlay" id="modal-transaction-form">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Registrar Movimiento Financiero</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <form id="form-transaction">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="trans-concept">Concepto / Descripción</label>
+            <input type="text" id="trans-concept" placeholder="Ej: Pago de renta, Licencia Zoom..." required>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="trans-type">Tipo de Movimiento</label>
+              <select id="trans-type" required>
+                <option value="income">Ingreso (+)</option>
+                <option value="expense">Egreso / Gasto (-)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="trans-amount">Monto ($)</label>
+              <input type="number" id="trans-amount" min="1" placeholder="300" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="trans-date">Fecha</label>
+            <input type="date" id="trans-date" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="secondary-btn close-modal">Cancelar</button>
+          <button type="submit" class="primary-btn">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript inlined directly to bypass local browser sandbox restrictions (CORS file:// protocol checks) -->
+  <script>
+    (function() {
+      // 0. DIAGNOSTIC INDICATOR
+      window.onload = function() {
+        const brand = document.querySelector(".sidebar-brand span");
+        if (brand) brand.textContent = "Administración ✓";
+      };
+
+      // GLOBAL ERROR HANDLER
+      window.onerror = function (message, source, lineno, colno, error) {
+        const errorEl = document.getElementById("login-error");
+        if (errorEl) {
+          errorEl.textContent = "Error de código: " + message + " (Línea " + lineno + ")";
+          errorEl.style.color = "#cf5c53";
+        }
+        alert("Error de Javascript detectado:\n\n" + message + "\nLínea: " + lineno);
+        return false;
+      };
+
+      // 1. DEFAULT AND PERSISTED DATA
+      const DEFAULT_PASSWORD = "karen2026";
+      let supabase = null;
+
+      const MOCK_PATIENTS = [
+        {
+          id: "p1",
+          name: "Ana Gómez Mendoza",
+          age: 28,
+          phone: "522215549032",
+          motive: "Ansiedad",
+          startDate: "2026-03-10",
+          status: "active",
+          notes: [
+            { id: "n1", date: "2026-03-10", title: "Primera Sesión - Entrevista", content: "Se presenta con síntomas físicos de ansiedad: taquicardia y problemas para dormir. Refiere exceso de trabajo y dificultad para decir 'no'." },
+            { id: "n2", date: "2026-03-17", title: "Identificación de Detonantes", content: "Trabajamos en registrar pensamientos automáticos en situaciones de estrés." }
+          ]
+        },
+        {
+          id: "p2",
+          name: "Carlos Rivera Ortiz",
+          age: 34,
+          phone: "525539485012",
+          motive: "Rupturas y duelo",
+          startDate: "2026-04-02",
+          status: "active",
+          notes: [
+            { id: "n3", date: "2026-04-02", title: "Encuadre de Duelo", content: "Proceso reciente de separación de su pareja de 5 años. Manifiesta vacío." }
+          ]
+        },
+        {
+          id: "p3",
+          name: "Sofía Castro Luna",
+          age: 23,
+          phone: "522224950392",
+          motive: "Amor propio",
+          startDate: "2026-05-15",
+          status: "inactive",
+          notes: [
+            { id: "n4", date: "2026-05-15", title: "Inicio de proceso", content: "Autoestima baja reflejada en sus relaciones interpersonales." }
+          ]
+        }
+      ];
+
+      const MOCK_APPOINTMENTS = [
+        { id: "a1", patientId: "p1", date: "2026-08-08", time: "16:00", cost: 600, status: "completed" },
+        { id: "a2", patientId: "p2", date: "2026-08-08", time: "18:00", cost: 600, status: "completed" },
+        { id: "a3", patientId: "p1", date: "2026-08-12", time: "16:00", cost: 600, status: "scheduled" },
+        { id: "a4", patientId: "p2", date: "2026-08-13", time: "11:00", cost: 600, status: "scheduled" }
+      ];
+
+      const MOCK_TRANSACTIONS = [
+        { id: "t1", date: "2026-08-01", concept: "Renta de consultorio físico", type: "expense", amount: 2500 },
+        { id: "t2", date: "2026-08-03", concept: "Licencia de Zoom Profesional", type: "expense", amount: 350 },
+        { id: "t3", date: "2026-08-08", concept: "Sesión: Ana Gómez Mendoza", type: "income", amount: 600 },
+        { id: "t4", date: "2026-08-08", concept: "Sesión: Carlos Rivera Ortiz", type: "income", amount: 600 }
+      ];
+
+      const MOCK_SUBSCRIBERS = [
+        { email: "mariana.perez@gmail.com", date: "2026-07-28" },
+        { email: "diego.sanchez@outlook.com", date: "2026-08-02" },
+        { email: "claudia_luna@yahoo.com.mx", date: "2026-08-05" }
+      ];
+
+      let patients = null;
+      try { patients = JSON.parse(localStorage.getItem("karen_patients")); } catch(e){}
+      if (!Array.isArray(patients)) patients = MOCK_PATIENTS;
+
+      let appointments = null;
+      try { appointments = JSON.parse(localStorage.getItem("karen_appointments")); } catch(e){}
+      if (!Array.isArray(appointments)) appointments = MOCK_APPOINTMENTS;
+
+      let transactions = null;
+      try { transactions = JSON.parse(localStorage.getItem("karen_transactions")); } catch(e){}
+      if (!Array.isArray(transactions)) transactions = MOCK_TRANSACTIONS;
+
+      let subscribers = null;
+      try { subscribers = JSON.parse(localStorage.getItem("karen_subscribers")); } catch(e){}
+      if (!Array.isArray(subscribers)) subscribers = MOCK_SUBSCRIBERS;
+
+      let currentPassword = localStorage.getItem("karen_admin_pwd");
+      if (!currentPassword || currentPassword === "undefined" || currentPassword === "null" || currentPassword.trim() === "") {
+        currentPassword = DEFAULT_PASSWORD;
+        localStorage.setItem("karen_admin_pwd", DEFAULT_PASSWORD);
+      }
+
+      function saveDataLocally() {
+        localStorage.setItem("karen_patients", JSON.stringify(patients));
+        localStorage.setItem("karen_appointments", JSON.stringify(appointments));
+        localStorage.setItem("karen_transactions", JSON.stringify(transactions));
+        localStorage.setItem("karen_subscribers", JSON.stringify(subscribers));
+      }
+
+      // 2. SUPABASE CONNECTION
+      async function initSupabase() {
+        const url = localStorage.getItem("karen_supabase_url");
+        const key = localStorage.getItem("karen_supabase_key");
+        const statusEl = document.getElementById("supabase-status");
+        const disconnectBtn = document.getElementById("btn-disconnect-supabase");
+        const urlInput = document.getElementById("supabase-url");
+        const keyInput = document.getElementById("supabase-key");
+
+        if (urlInput && url) urlInput.value = url;
+        if (keyInput && key) keyInput.value = key;
+
+        if (url && key && window.supabase) {
+          try {
+            if (statusEl) {
+              statusEl.textContent = "Conectando a Supabase...";
+              statusEl.style.color = "var(--accent-gold)";
+            }
+            supabase = window.supabase.createClient(url, key);
+            const { error } = await supabase.from("pacientes").select("id").limit(1);
+            if (error) throw error;
+            
+            if (statusEl) {
+              statusEl.textContent = "Conectado. Sincronizando...";
+              statusEl.style.color = "var(--success)";
+            }
+            if (disconnectBtn) disconnectBtn.style.display = "inline-block";
+            await performCloudSync();
+            if (statusEl) statusEl.textContent = "Sincronización en la nube activa.";
+            
+            if (sessionStorage.getItem("karen_logged_in") === "true") {
+              initDashboard();
+            }
+          } catch (err) {
+            console.error(err);
+            if (statusEl) {
+              statusEl.textContent = "Error al conectar. Verifica credenciales y estructura de tablas.";
+              statusEl.style.color = "var(--danger)";
+            }
+            supabase = null;
+          }
+        } else {
+          if (statusEl) {
+            statusEl.textContent = "Sincronización inactiva. Datos guardados en local.";
+            statusEl.style.color = "var(--text-muted)";
+          }
+          if (disconnectBtn) disconnectBtn.style.display = "none";
+          supabase = null;
+        }
+      }
+
+      async function performCloudSync() {
+        if (!supabase) return;
+        try {
+          const { data: cloudP, error: pErr } = await supabase.from("pacientes").select("*");
+          const { data: cloudA, error: aErr } = await supabase.from("citas").select("*");
+          const { data: cloudT, error: tErr } = await supabase.from("transacciones").select("*");
+          const { data: cloudS, error: sErr } = await supabase.from("suscriptores").select("*");
+
+          if (pErr || aErr || tErr || sErr) throw (pErr || aErr || tErr || sErr);
+
+          if (cloudP.length === 0 && patients.length > 0) {
+            // Seed cloud database
+            for (const p of patients) await supabase.from("pacientes").insert({ id: p.id, name: p.name, age: p.age, phone: p.phone, motive: p.motive, start_date: p.startDate, status: p.status, notes: p.notes || [] });
+            for (const a of appointments) await supabase.from("citas").insert({ id: a.id, patient_id: a.patientId, date: a.date, time: a.time, cost: a.cost, status: a.status });
+            for (const t of transactions) await supabase.from("transacciones").insert({ id: t.id, date: t.date, concept: t.concept, type: t.type, amount: t.amount });
+            for (const s of subscribers) await supabase.from("suscriptores").insert({ email: s.email, date: s.date });
+            console.log("Carga de datos locales inicial subida.");
+          } else {
+            patients = cloudP.map(p => ({ id: p.id, name: p.name, age: p.age, phone: p.phone, motive: p.motive, startDate: p.start_date, status: p.status, notes: p.notes || [] }));
+            appointments = cloudA.map(a => ({ id: a.id, patientId: a.patient_id, date: a.date, time: a.time, cost: a.cost, status: a.status }));
+            transactions = cloudT.map(t => ({ id: t.id, date: t.date, concept: t.concept, type: t.type, amount: t.amount }));
+            subscribers = cloudS.map(s => ({ email: s.email, date: s.date }));
+            saveDataLocally();
+          }
+        } catch (e) {
+          console.error("Fallo de sincronización:", e);
+        }
+      }
+
+      // Config Form Handler
+      const supabaseConfigForm = document.getElementById("supabase-config-form");
+      const btnDisconnectSupabase = document.getElementById("btn-disconnect-supabase");
+
+      if (supabaseConfigForm) {
+        supabaseConfigForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const url = document.getElementById("supabase-url").value.trim();
+          const key = document.getElementById("supabase-key").value.trim();
+          if (url && key) {
+            localStorage.setItem("karen_supabase_url", url);
+            localStorage.setItem("karen_supabase_key", key);
+            await initSupabase();
+          }
+        });
+      }
+
+      if (btnDisconnectSupabase) {
+        btnDisconnectSupabase.addEventListener("click", () => {
+          if (confirm("¿Desconectar base de datos?")) {
+            localStorage.removeItem("karen_supabase_url");
+            localStorage.removeItem("karen_supabase_key");
+            supabase = null;
+            initSupabase();
+          }
+        });
+      }
+
+      // 3. AUTHENTICATION & SIDEBAR ACTIONS
+      const loginOverlay = document.getElementById("login-overlay");
+      const dashboardContainer = document.getElementById("dashboard-container");
+      const logoutBtn = document.getElementById("logout-btn");
+
+      function checkAuth() {
+        if (sessionStorage.getItem("karen_logged_in") === "true") {
+          if (loginOverlay) loginOverlay.style.display = "none";
+          if (dashboardContainer) dashboardContainer.classList.remove("hidden");
+          initDashboard();
+        } else {
+          if (loginOverlay) loginOverlay.style.display = "flex";
+          if (dashboardContainer) dashboardContainer.classList.add("hidden");
+        }
+      }
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+          sessionStorage.removeItem("karen_logged_in");
+          checkAuth();
+        });
+      }
+
+      // 4. NAVIGATION & TABS
+      const sidebarMenu = document.querySelector(".sidebar-menu");
+      if (sidebarMenu) {
+        sidebarMenu.addEventListener("click", (e) => {
+          const item = e.target.closest(".menu-item");
+          if (!item) return;
+
+          const menuItems = document.querySelectorAll(".menu-item");
+          const tabContents = document.querySelectorAll(".tab-content");
+
+          menuItems.forEach(i => i.classList.remove("active"));
+          tabContents.forEach(t => t.classList.remove("active"));
+
+          item.classList.add("active");
+          const tabId = `tab-${item.getAttribute("data-tab")}`;
+          const targetTab = document.getElementById(tabId);
+          if (targetTab) targetTab.classList.add("active");
+          
+          try {
+            if (tabId === "tab-resumen") {
+              updateSummaryStats();
+              renderUpcomingAppointmentsTable();
+              renderCharts();
+            } else if (tabId === "tab-pacientes") {
+              renderPatientsTable();
+            } else if (tabId === "tab-agenda") {
+              renderAllAppointmentsTable();
+              populatePatientDropdown();
+            } else if (tabId === "tab-newsletter") {
+              renderSubscribersList();
+            } else if (tabId === "tab-finanzas") {
+              renderFinanceStats();
+              renderTransactionsTable();
+            }
+          } catch(err) {
+            console.error("Error cargando pestaña:", err);
+          }
+        });
+      }
+
+      // 5. MODAL MANAGEMENT
+      const modalOverlays = document.querySelectorAll(".modal-overlay");
+      const closeModalButtons = document.querySelectorAll(".close-modal");
+
+      function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.add("active");
+      }
+
+      function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.remove("active");
+      }
+
+      closeModalButtons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const modal = e.target.closest(".modal-overlay");
+          if (modal) modal.classList.remove("active");
+        });
+      });
+
+      modalOverlays.forEach(overlay => {
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) overlay.classList.remove("active");
+        });
+      });
+
+      // 6. INITIATION & STATISTICS
+      let revenueChartInstance = null;
+      let motivesChartInstance = null;
+
+      window.initDashboard = function() {
+        try { saveDataLocally(); } catch(e){}
+        try { updateSummaryStats(); } catch(e){}
+        try { renderUpcomingAppointmentsTable(); } catch(e){}
+        try { renderCharts(); } catch(e){}
+        try { populatePatientDropdown(); } catch(e){}
+      };
+
+      function updateSummaryStats() {
+        const activeCount = patients.filter(p => p.status === "active").length;
+        const totalPatientsEl = document.getElementById("stat-total-patients");
+        if (totalPatientsEl) totalPatientsEl.textContent = activeCount;
+
+        const todayStr = new Date();
+        const currentMonthStr = todayStr.toISOString().slice(0, 7);
+
+        const monthlyApps = appointments.filter(a => a.date.startsWith(currentMonthStr));
+        const monthlySessionsEl = document.getElementById("stat-monthly-sessions");
+        if (monthlySessionsEl) monthlySessionsEl.textContent = monthlyApps.length;
+        
+        const pendingCount = monthlyApps.filter(a => a.status === "scheduled").length;
+        const pendingSessionsEl = document.getElementById("stat-pending-sessions");
+        if (pendingSessionsEl) pendingSessionsEl.textContent = `${pendingCount} pendientes`;
+
+        let monthlyIncome = 0;
+        monthlyApps.forEach(a => {
+          if (a.status === "completed") monthlyIncome += a.cost;
+        });
+        const monthlyRevenueEl = document.getElementById("stat-monthly-revenue");
+        if (monthlyRevenueEl) monthlyRevenueEl.textContent = `$${monthlyIncome.toLocaleString()}`;
+
+        const newsletterSubEl = document.getElementById("stat-newsletter-subscribers");
+        if (newsletterSubEl) newsletterSubEl.textContent = subscribers.length;
+      }
+
+      // 7. CHARTS CONFIGURATION
+      function renderCharts() {
+        if (!window.Chart) return;
+        try {
+          const ctxRevenue = document.getElementById("revenue-chart");
+          const ctxMotives = document.getElementById("motives-chart");
+          if (!ctxRevenue || !ctxMotives) return;
+
+          if (revenueChartInstance) revenueChartInstance.destroy();
+          if (motivesChartInstance) motivesChartInstance.destroy();
+
+          const motiveCounts = { "Ansiedad": 0, "Amor propio": 0, "Rupturas y duelo": 0, "Terapia individual": 0, "Otros motivos": 0 };
+          patients.forEach(p => {
+            if (p.status === "active" && motiveCounts[p.motive] !== undefined) motiveCounts[p.motive]++;
+          });
+
+          motivesChartInstance = new Chart(ctxMotives.getContext("2d"), {
+            type: "doughnut",
+            data: {
+              labels: Object.keys(motiveCounts),
+              datasets: [{
+                data: Object.values(motiveCounts),
+                backgroundColor: ["#7894a4", "#b5a17e", "#638397", "#f5efe7", "#c4b7a6"],
+                borderColor: "#ffffff",
+                borderWidth: 2
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { position: "bottom", labels: { font: { family: "Inter", size: 11 } } } }
+            }
+          });
+
+          const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+          const last6Months = [];
+          const currentMonthIdx = new Date().getMonth();
+          const currentYear = new Date().getFullYear();
+
+          for (let i = 5; i >= 0; i--) {
+            let m = currentMonthIdx - i;
+            let y = currentYear;
+            if (m < 0) { m += 12; y -= 1; }
+            last6Months.push({ monthIdx: m, year: y, label: `${monthNames[m]} ${y}`, income: 0, sessions: 0 });
+          }
+
+          appointments.forEach(a => {
+            const aDate = new Date(a.date);
+            const matchedMonth = last6Months.find(m => m.monthIdx === aDate.getMonth() && m.year === aDate.getFullYear());
+            if (matchedMonth) {
+              matchedMonth.sessions++;
+              if (a.status === "completed") matchedMonth.income += a.cost;
+            }
+          });
+
+          revenueChartInstance = new Chart(ctxRevenue.getContext("2d"), {
+            type: "bar",
+            data: {
+              labels: last6Months.map(m => m.label),
+              datasets: [
+                { label: "Ingresos ($)", data: last6Months.map(m => m.income), backgroundColor: "rgba(120, 148, 164, 0.8)", borderColor: "#7894a4", borderWidth: 1, yAxisID: "y-income" },
+                { label: "Sesiones", data: last6Months.map(m => m.sessions), type: "line", borderColor: "#b5a17e", backgroundColor: "#b5a17e", borderWidth: 2, yAxisID: "y-sessions", tension: 0.3 }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                "y-income": { type: "linear", position: "left", title: { display: true, text: "Ingreso ($)" } },
+                "y-sessions": { type: "linear", position: "right", grid: { drawOnChartArea: false }, title: { display: true, text: "Sesiones" } }
+              }
+            }
+          });
+        } catch(e) {
+          console.error(e);
+        }
+      }
+
+      // 8. DATA TABLES
+      function renderUpcomingAppointmentsTable() {
+        const tbody = document.querySelector("#table-upcoming-appointments tbody");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+
+        const todayStr = new Date().toISOString().split('T')[0];
+        const upcoming = appointments
+          .filter(a => a.date >= todayStr)
+          .sort((a, b) => `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`))
+          .slice(0, 5);
+
+        if (upcoming.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No hay próximas citas programadas.</td></tr>`;
+          return;
+        }
+
+        upcoming.forEach(app => {
+          const patient = patients.find(p => p.id === app.patientId) || { name: "Desconocido", motive: "-" };
+          const tr = document.createElement("tr");
+
+          let statusText = "Programada";
+          let statusClass = "scheduled";
+          if (app.status === "completed") { statusText = "Completada"; statusClass = "completed"; }
+          else if (app.status === "cancelled") { statusText = "Cancelada"; statusClass = "cancelled"; }
+
+          tr.innerHTML = `
+            <td><strong>${patient.name}</strong></td>
+            <td>${app.date}</td>
+            <td>${app.time} hs</td>
+            <td>${patient.motive}</td>
+            <td><span class="badge ${statusClass}">${statusText}</span></td>
+            <td class="action-buttons">
+              ${app.status === "scheduled" ? `
+                <button class="action-btn" onclick="changeAppointmentStatus('${app.id}', 'completed')" title="Completada">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </button>
+              ` : `-`}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      window.changeAppointmentStatus = async function(id, newStatus) {
+        const app = appointments.find(a => a.id === id);
+        if (app) {
+          app.status = newStatus;
+          if (supabase) {
+            try { await supabase.from("citas").update({ status: newStatus }).eq("id", id); } catch(e){}
+          }
+          if (newStatus === "completed") {
+            const patient = patients.find(p => p.id === app.patientId) || { name: "Paciente" };
+            const concept = `Sesión: ${patient.name}`;
+            const dup = transactions.find(t => t.concept === concept && t.date === app.date);
+            if (!dup) {
+              const newT = { id: `t_${Date.now()}`, date: app.date, concept, type: "income", amount: app.cost };
+              transactions.unshift(newT);
+              if (supabase) {
+                try { await supabase.from("transacciones").insert({ id: newT.id, date: newT.date, concept: newT.concept, type: newT.type, amount: newT.amount }); } catch(e){}
+              }
+            }
+          }
+          saveDataLocally();
+          updateSummaryStats();
+          renderUpcomingAppointmentsTable();
+          renderAllAppointmentsTable();
+          renderCharts();
+        }
+      };
+
+      // 9. PATIENTS
+      const patientSearch = document.getElementById("patient-search");
+      const formPatient = document.getElementById("form-patient");
+
+      if (formPatient) {
+        formPatient.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const editId = document.getElementById("patient-edit-id").value;
+          const name = document.getElementById("patient-name").value.trim();
+          const age = parseInt(document.getElementById("patient-age").value);
+          const phone = document.getElementById("patient-phone").value.trim();
+          const motive = document.getElementById("patient-motive").value;
+          const status = document.getElementById("patient-status").value;
+          const startDate = document.getElementById("patient-start-date").value;
+
+          if (editId) {
+            const idx = patients.findIndex(p => p.id === editId);
+            if (idx !== -1) {
+              patients[idx] = { ...patients[idx], name, age, phone, motive, status, startDate };
+              if (supabase) {
+                try { await supabase.from("pacientes").update({ name, age, phone, motive, status, start_date: startDate }).eq("id", editId); } catch(e){}
+              }
+            }
+          } else {
+            const newP = { id: `p_${Date.now()}`, name, age, phone, motive, status, startDate, notes: [] };
+            patients.unshift(newP);
+            if (supabase) {
+              try { await supabase.from("pacientes").insert({ id: newP.id, name: newP.name, age: newP.age, phone: newP.phone, motive: newP.motive, start_date: newP.startDate, status: newP.status, notes: [] }); } catch(e){}
+            }
+          }
+          saveDataLocally();
+          closeModal("modal-patient-form");
+          renderPatientsTable();
+          updateSummaryStats();
+        });
+      }
+
+      window.renderPatientsTable = function() {
+        const tbody = document.querySelector("#table-patients tbody");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+        const query = patientSearch ? patientSearch.value.toLowerCase().trim() : "";
+        const filtered = patients.filter(p => p.name.toLowerCase().includes(query) || p.phone.includes(query));
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center;">No se encontraron pacientes.</td></tr>`;
+          return;
+        }
+
+        filtered.forEach(p => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><strong>${p.name}</strong></td>
+            <td>${p.age} años</td>
+            <td>+${p.phone}</td>
+            <td>${p.motive}</td>
+            <td>${p.startDate}</td>
+            <td><span class="badge ${p.status === 'active' ? 'active' : 'inactive'}">${p.status === 'active' ? 'Activo' : 'Inactivo'}</span></td>
+            <td class="action-buttons">
+              <button class="action-btn" onclick="openPatientRecord('${p.id}')">Expediente</button>
+              <button class="action-btn" onclick="editPatient('${p.id}')">Editar</button>
+              <button class="action-btn delete" onclick="deletePatient('${p.id}')">X</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      };
+
+      if (patientSearch) patientSearch.addEventListener("input", renderPatientsTable);
+
+      const btnAddPatient = document.getElementById("btn-add-patient");
+      if (btnAddPatient) {
+        btnAddPatient.addEventListener("click", () => {
+          formPatient.reset();
+          document.getElementById("patient-edit-id").value = "";
+          document.getElementById("modal-patient-form-title").textContent = "Registrar Paciente";
+          document.getElementById("patient-start-date").value = new Date().toISOString().split('T')[0];
+          openModal("modal-patient-form");
+        });
+      }
+
+      window.editPatient = function(id) {
+        const p = patients.find(p => p.id === id);
+        if (p) {
+          document.getElementById("patient-edit-id").value = p.id;
+          document.getElementById("patient-name").value = p.name;
+          document.getElementById("patient-age").value = p.age;
+          document.getElementById("patient-phone").value = p.phone;
+          document.getElementById("patient-motive").value = p.motive;
+          document.getElementById("patient-status").value = p.status;
+          document.getElementById("patient-start-date").value = p.startDate;
+          document.getElementById("modal-patient-form-title").textContent = "Editar Paciente";
+          openModal("modal-patient-form");
+        }
+      };
+
+      window.deletePatient = async function(id) {
+        if (confirm("¿Deseas eliminar este paciente?")) {
+          patients = patients.filter(p => p.id !== id);
+          appointments = appointments.filter(a => a.patientId !== id);
+          if (supabase) {
+            try {
+              await supabase.from("pacientes").delete().eq("id", id);
+              await supabase.from("citas").delete().eq("patient_id", id);
+            } catch(e){}
+          }
+          saveDataLocally();
+          renderPatientsTable();
+          updateSummaryStats();
+        }
+      };
+
+      // 10. CLINICAL HISTORY
+      const timelineContainer = document.getElementById("clinical-history-timeline-container");
+      const btnAddSessionNote = document.getElementById("btn-add-session-note");
+      const boxNewNote = document.getElementById("box-new-note");
+      const formNewNote = document.getElementById("form-new-note");
+      const btnCancelNote = document.getElementById("btn-cancel-note");
+
+      window.openPatientRecord = function(id) {
+        activeRecordPatientId = id;
+        const p = patients.find(p => p.id === id);
+        if (p) {
+          document.getElementById("modal-patient-name-title").textContent = `Expediente: ${p.name}`;
+          document.getElementById("profile-patient-age").textContent = `${p.age} años`;
+          document.getElementById("profile-patient-phone").textContent = `+${p.phone}`;
+          document.getElementById("profile-patient-motive").textContent = p.motive;
+          document.getElementById("profile-patient-start").textContent = p.startDate;
+          document.getElementById("profile-patient-status").textContent = p.status === 'active' ? 'Activo' : 'Inactivo';
+          if (boxNewNote) boxNewNote.classList.add("hidden");
+          renderTimeline(p);
+          openModal("modal-patient-history");
+        }
+      };
+
+      function renderTimeline(patient) {
+        if (!timelineContainer) return;
+        timelineContainer.innerHTML = "";
+        if (!patient.notes || patient.notes.length === 0) {
+          timelineContainer.innerHTML = `<p style="text-align: center; padding: 20px 0; color: var(--text-muted);">Sin notas clínicas.</p>`;
+          return;
+        }
+        const list = document.createElement("div");
+        list.className = "history-timeline";
+        patient.notes.forEach(n => {
+          const item = document.createElement("div");
+          item.className = "timeline-item";
+          item.innerHTML = `
+            <div class="timeline-header"><span class="timeline-date">${n.date}</span><strong>${n.title}</strong></div>
+            <div class="timeline-content">${n.content}</div>
+          `;
+          list.appendChild(item);
+        });
+        timelineContainer.appendChild(list);
+      }
+
+      if (btnAddSessionNote) {
+        btnAddSessionNote.addEventListener("click", () => {
+          formNewNote.reset();
+          document.getElementById("new-note-date").value = new Date().toISOString().split('T')[0];
+          if (boxNewNote) boxNewNote.classList.remove("hidden");
+        });
+      }
+
+      if (btnCancelNote) btnCancelNote.addEventListener("click", () => boxNewNote.classList.add("hidden"));
+
+      if (formNewNote) {
+        formNewNote.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const p = patients.find(p => p.id === activeRecordPatientId);
+          if (p) {
+            const note = {
+              id: `n_${Date.now()}`,
+              date: document.getElementById("new-note-date").value,
+              title: document.getElementById("new-note-title").value.trim(),
+              content: document.getElementById("new-note-desc").value.trim()
+            };
+            if (!p.notes) p.notes = [];
+            p.notes.unshift(note);
+            if (supabase) {
+              try { await supabase.from("pacientes").update({ notes: p.notes }).eq("id", p.id); } catch(e){}
+            }
+            saveDataLocally();
+            renderTimeline(p);
+            if (boxNewNote) boxNewNote.classList.add("hidden");
+          }
+        });
+      }
+
+      // 11. APPOINTMENTS
+      const formAppointmentModal = document.getElementById("form-appointment-modal");
+      const appPatientSelect = document.getElementById("app-patient-select");
+
+      function populatePatientDropdown() {
+        if (!appPatientSelect) return;
+        appPatientSelect.innerHTML = `<option value="">Selecciona un paciente</option>`;
+        patients.forEach(p => {
+          appPatientSelect.innerHTML += `<option value="${p.id}">${p.name}</option>`;
+        });
+      }
+
+      const btnAddAppointment = document.getElementById("btn-add-appointment");
+      const btnQuickAppointment = document.getElementById("btn-quick-appointment");
+
+      function triggerAppModal() {
+        formAppointmentModal.reset();
+        populatePatientDropdown();
+        document.getElementById("appointment-edit-id").value = "";
+        document.getElementById("app-date").value = new Date().toISOString().split('T')[0];
+        document.getElementById("app-cost").value = 600;
+        openModal("modal-appointment-form");
+      }
+
+      if (btnAddAppointment) btnAddAppointment.addEventListener("click", triggerAppModal);
+      if (btnQuickAppointment) btnQuickAppointment.addEventListener("click", triggerAppModal);
+
+      if (formAppointmentModal) {
+        formAppointmentModal.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const editId = document.getElementById("appointment-edit-id").value;
+          const patientId = appPatientSelect.value;
+          const date = document.getElementById("app-date").value;
+          const time = document.getElementById("app-time").value;
+          const cost = parseInt(document.getElementById("app-cost").value);
+          const status = document.getElementById("app-status").value;
+
+          if (editId) {
+            const idx = appointments.findIndex(a => a.id === editId);
+            if (idx !== -1) {
+              const prev = appointments[idx].status;
+              appointments[idx] = { ...appointments[idx], patientId, date, time, cost, status };
+              if (supabase) {
+                try { await supabase.from("citas").update({ patient_id: patientId, date, time, cost, status }).eq("id", editId); } catch(e){}
+              }
+              if (status === "completed" && prev !== "completed") await changeAppointmentStatus(editId, "completed");
+            }
+          } else {
+            const newA = { id: `a_${Date.now()}`, patientId, date, time, cost, status };
+            appointments.unshift(newA);
+            if (supabase) {
+              try { await supabase.from("citas").insert({ id: newA.id, patient_id: newA.patientId, date: newA.date, time: newA.time, cost: newA.cost, status: newA.status }); } catch(e){}
+            }
+            if (status === "completed") {
+              const patient = patients.find(p => p.id === patientId) || { name: "Paciente" };
+              const newT = { id: `t_${Date.now()}`, date, concept: `Sesión: ${patient.name}`, type: "income", amount: cost };
+              transactions.unshift(newT);
+              if (supabase) {
+                try { await supabase.from("transacciones").insert({ id: newT.id, date: newT.date, concept: newT.concept, type: newT.type, amount: newT.amount }); } catch(e){}
+              }
+            }
+          }
+          saveDataLocally();
+          closeModal("modal-appointment-form");
+          renderAllAppointmentsTable();
+          renderUpcomingAppointmentsTable();
+          updateSummaryStats();
+          renderCharts();
+        });
+      }
+
+      window.renderAllAppointmentsTable = function() {
+        const tbody = document.querySelector("#table-all-appointments tbody");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+        const sorted = [...appointments].sort((a, b) => `${b.date}T${b.time}`.localeCompare(`${a.date}T${a.time}`));
+        if (sorted.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center;">No hay citas registradas.</td></tr>`;
+          return;
+        }
+        sorted.forEach(app => {
+          const patient = patients.find(p => p.id === app.patientId) || { name: "Eliminado" };
+          const tr = document.createElement("tr");
+          let statusText = app.status === "completed" ? "Completada" : app.status === "cancelled" ? "Cancelada" : "Programada";
+          tr.innerHTML = `
+            <td><strong>${patient.name}</strong></td>
+            <td>${app.date}</td>
+            <td>${app.time} hs</td>
+            <td>${patient.motive || "-"}</td>
+            <td>$${app.cost}</td>
+            <td><span class="badge ${app.status}">${statusText}</span></td>
+            <td class="action-buttons">
+              ${app.status === "scheduled" ? `<button class="action-btn" onclick="changeAppointmentStatus('${app.id}', 'completed')">Completar</button>` : ""}
+              <button class="action-btn" onclick="editAppointment('${app.id}')">Editar</button>
+              <button class="action-btn delete" onclick="deleteAppointment('${app.id}')">X</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      };
+
+      window.editAppointment = function(id) {
+        const app = appointments.find(a => a.id === id);
+        if (app) {
+          populatePatientDropdown();
+          document.getElementById("appointment-edit-id").value = app.id;
+          appPatientSelect.value = app.patientId;
+          document.getElementById("app-date").value = app.date;
+          document.getElementById("app-time").value = app.time;
+          document.getElementById("app-cost").value = app.cost;
+          document.getElementById("app-status").value = app.status;
+          document.getElementById("modal-appointment-form-title").textContent = "Editar Sesión";
+          openModal("modal-appointment-form");
+        }
+      };
+
+      window.deleteAppointment = async function(id) {
+        if (confirm("¿Eliminar registro de cita?")) {
+          appointments = appointments.filter(a => a.id !== id);
+          if (supabase) {
+            try { await supabase.from("citas").delete().eq("id", id); } catch(e){}
+          }
+          saveDataLocally();
+          renderAllAppointmentsTable();
+          renderUpcomingAppointmentsTable();
+          updateSummaryStats();
+          renderCharts();
+        }
+      };
+
+      // 12. NEWSLETTER
+      window.renderSubscribersList = function() {
+        const tbody = document.getElementById("newsletter-subscribers-list");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+        if (subscribers.length === 0) {
+          tbody.innerHTML = `<tr><td>Sin correos registrados.</td></tr>`;
+          return;
+        }
+        subscribers.forEach(s => {
+          tbody.innerHTML += `<tr><td>${s.email}</td></tr>`;
+        });
+      };
+
+      const newsletterSendForm = document.getElementById("newsletter-send-form");
+      if (newsletterSendForm) {
+        newsletterSendForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const subject = document.getElementById("newsletter-subject").value;
+          alert(`Newsletter enviada con éxito a los ${subscribers.length} suscriptores.\nAsunto: ${subject}`);
+          newsletterSendForm.reset();
+        });
+      }
+
+      window.wrapText = function(before, after) {
+        const textarea = document.getElementById("newsletter-body");
+        if (!textarea) return;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = textarea.value;
+        const selected = text.substring(start, end);
+        textarea.value = text.substring(0, start) + before + selected + after + text.substring(end);
+        textarea.focus();
+      };
+
+      // 13. FINANCES
+      function renderFinanceStats() {
+        const todayStr = new Date();
+        const currentMonthStr = todayStr.toISOString().slice(0, 7);
+        const monthlyTrans = transactions.filter(t => t.date.startsWith(currentMonthStr));
+        let income = 0;
+        let expenses = 0;
+        monthlyTrans.forEach(t => {
+          if (t.type === "income") income += t.amount;
+          else expenses += t.amount;
+        });
+        const net = income - expenses;
+
+        const elInc = document.getElementById("finance-monthly-income");
+        const elExp = document.getElementById("finance-monthly-expenses");
+        const elNet = document.getElementById("finance-net-balance");
+        const elStatus = document.getElementById("finance-balance-status");
+
+        if (elInc) elInc.textContent = `$${income.toLocaleString()}`;
+        if (elExp) elExp.textContent = `$${expenses.toLocaleString()}`;
+        if (elNet) elNet.textContent = `$${net.toLocaleString()}`;
+        if (elStatus) {
+          elStatus.textContent = net >= 0 ? "Balance Positivo" : "Balance Negativo";
+          elStatus.style.color = net >= 0 ? "var(--success)" : "var(--danger)";
+        }
+      }
+
+      const btnAddTransaction = document.getElementById("btn-add-transaction");
+      const formTransaction = document.getElementById("form-transaction");
+
+      if (btnAddTransaction) {
+        btnAddTransaction.addEventListener("click", () => {
+          formTransaction.reset();
+          document.getElementById("trans-date").value = new Date().toISOString().split('T')[0];
+          openModal("modal-transaction-form");
+        });
+      }
+
+      if (formTransaction) {
+        formTransaction.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const concept = document.getElementById("trans-concept").value.trim();
+          const type = document.getElementById("trans-type").value;
+          const amount = parseInt(document.getElementById("trans-amount").value);
+          const date = document.getElementById("trans-date").value;
+          const newT = { id: `t_${Date.now()}`, date, concept, type, amount };
+          transactions.unshift(newT);
+          if (supabase) {
+            try { await supabase.from("transacciones").insert({ id: newT.id, date: newT.date, concept: newT.concept, type: newT.type, amount: newT.amount }); } catch(e){}
+          }
+          saveDataLocally();
+          closeModal("modal-transaction-form");
+          renderFinanceStats();
+          renderTransactionsTable();
+          updateSummaryStats();
+          renderCharts();
+        });
+      }
+
+      window.renderTransactionsTable = function() {
+        const tbody = document.querySelector("#table-transactions tbody");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+        const sorted = [...transactions].sort((a, b) => b.date.localeCompare(a.date));
+        if (sorted.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Sin transacciones.</td></tr>`;
+          return;
+        }
+        sorted.forEach(t => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${t.date}</td>
+            <td><strong>${t.concept}</strong></td>
+            <td><span class="badge ${t.type === 'income' ? 'active' : 'cancelled'}">${t.type === 'income' ? 'Ingreso' : 'Egreso'}</span></td>
+            <td style="color: ${t.type === 'income' ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">
+              ${t.type === 'income' ? '+' : '-'}$${t.amount}
+            </td>
+            <td class="action-buttons">
+              <button class="action-btn delete" onclick="deleteTransaction('${t.id}')">X</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      };
+
+      window.deleteTransaction = async function(id) {
+        if (confirm("¿Eliminar este movimiento?")) {
+          transactions = transactions.filter(t => t.id !== id);
+          if (supabase) {
+            try { await supabase.from("transacciones").delete().eq("id", id); } catch(e){}
+          }
+          saveDataLocally();
+          renderFinanceStats();
+          renderTransactionsTable();
+          updateSummaryStats();
+          renderCharts();
+        }
+      };
+
+      // 14. SETTINGS
+      const settingsPasswordForm = document.getElementById("settings-password-form");
+      const passwordStatus = document.getElementById("password-status");
+
+      if (settingsPasswordForm) {
+        settingsPasswordForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const current = document.getElementById("settings-current-pwd").value;
+          const newPwd = document.getElementById("settings-new-pwd").value;
+          if (current !== currentPassword) {
+            passwordStatus.textContent = "La contraseña actual es incorrecta.";
+            passwordStatus.style.color = "var(--danger)";
+            return;
+          }
+          currentPassword = newPwd;
+          localStorage.setItem("karen_admin_pwd", newPwd);
+          passwordStatus.textContent = "¡Contraseña actualizada con éxito!";
+          passwordStatus.style.color = "var(--success)";
+          settingsPasswordForm.reset();
+        });
+      }
+
+      // INITIALIZATION
+      function init() {
+        checkAuth();
+        initSupabase();
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

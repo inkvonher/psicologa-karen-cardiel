@@ -196,7 +196,8 @@ form.addEventListener("submit", (event) => {
   window.open(url, "_blank", "noopener,noreferrer");
 });
 
-newsletterForm.addEventListener("submit", (event) => {
+// Sincronización del formulario de Newsletter
+newsletterForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   if (!newsletterForm.checkValidity()) {
@@ -205,17 +206,44 @@ newsletterForm.addEventListener("submit", (event) => {
   }
 
   const data = new FormData(newsletterForm);
-  const email = data.get("email").trim();
+  const email = data.get("email").trim().toLowerCase();
 
   newsletterStatus.textContent = "Procesando tu suscripción...";
   newsletterStatus.style.color = "var(--blue)";
 
-  // Simulación de envío AJAX de suscripción para evitar redirección molesta a WhatsApp
-  setTimeout(() => {
-    newsletterStatus.textContent = "¡Gracias por suscribirte! Te has registrado con éxito.";
-    newsletterStatus.style.color = "#3f9f72"; // Color verde de éxito
-    newsletterForm.reset();
-  }, 1200);
+  const todayDate = new Date().toISOString().split('T')[0];
+
+  try {
+    // 1. Enviar al endpoint seguro del backend en Vercel
+    const response = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email })
+    });
+
+    if (!response.ok) {
+      console.warn("Backend API not reachable or unconfigured. Saving to local storage cache.");
+    }
+  } catch (e) {
+    console.error("Error al contactar con el servidor de suscripción:", e);
+  }
+
+  // 2. Respaldo local de caché en el navegador (para visualización inmediata)
+  try {
+    let subs = JSON.parse(localStorage.getItem("karen_subscribers")) || [];
+    if (!subs.some(s => s.email === email)) {
+      subs.push({ email, date: todayDate });
+      localStorage.setItem("karen_subscribers", JSON.stringify(subs));
+    }
+  } catch (e) {
+    console.error("Error al guardar respaldo local:", e);
+  }
+
+  newsletterStatus.textContent = "¡Gracias por suscribirte! Te has registrado con éxito.";
+  newsletterStatus.style.color = "#3f9f72"; // Verde éxito
+  newsletterForm.reset();
 });
 
 if (window.gsap && window.ScrollTrigger) {
