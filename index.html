@@ -60,6 +60,54 @@
         ]
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Cómo funciona la terapia en línea y qué plataforma se usa?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Después de agendar tu cita y enviar tu comprobante de pago con al menos 24 horas de anticipación a la sesión, te enviamos el enlace privado de Google Meet para acceder a tu sesión."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuánto dura cada sesión y con qué frecuencia se toman?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cada sesión tiene una duración de 50 a 60 minutos y regularmente se llevan a cabo de forma semanal."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué métodos de pago se aceptan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Los pagos se realizan mediante transferencia bancaria (SPEI)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué pasa si necesito reprogramar o cancelar una sesión?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "En caso de cancelación o reprogramación, se solicita avisar con al menos 24 horas de anticipación; de lo contrario, la sesión se considerará como tomada. Antes de las 24 horas puede ser en situaciones específicas y se podrá reagendar. Si no te presentas a la sesión sin previo aviso, el pago no será reembolsable."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Mis datos y conversaciones son 100% confidenciales?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, 100% confidencial. Toda la información compartida durante las sesiones es estrictamente confidencial y está protegida conforme al código ético profesional del psicólogo. La confidencialidad únicamente podrá romperse ante riesgo de daño grave hacia ti mismo/a, hacia otras personas o por requerimiento legal competente."
+            }
+          }
+        ]
+      }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -74,135 +122,256 @@
   <body>
     <div class="site-frame">
       <header class="site-header">
-        <a class="logo-link" href="#inicio" aria-label="Ir al inicio">
-          <img src="./assets/karen-logo-uploaded.png" alt="Karen Cardiel Psicóloga" />
-        </a>
-        <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
-          <a class="active" href="#inicio">Inicio</a>
-          <a href="#sobre-mi">Sobre mí</a>
-          <a href="#servicios">Servicios</a>
-          <a href="#terapia">¿Por qué terapia?</a>
-          <a href="#testimonios">Testimonios</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
-        <div class="header-actions-wrapper">
-          <a class="header-cta" href="#agendar">Agendar cita</a>
-          <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-          </button>
+        <div class="container header-inner">
+          <a class="logo-link" href="#inicio" aria-label="Ir al inicio">
+            <img src="./assets/karen-logo-uploaded.png" alt="Karen Cardiel Psicóloga" />
+          </a>
+          <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+            <a class="active" href="#inicio">Inicio</a>
+            <a href="#sobre-mi">Sobre mí</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#proceso">Proceso</a>
+            <a href="#terapia">¿Por qué terapia?</a>
+            <a href="#testimonios">Testimonios</a>
+            <a href="#faq">Preguntas</a>
+            <a href="#contacto">Contacto</a>
+          </nav>
+          <div class="header-actions-wrapper">
+            <a class="header-cta" href="#agendar">Agendar cita</a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+            </button>
+          </div>
         </div>
       </header>
 
       <main>
         <section id="inicio" class="hero-section">
-          <div class="hero-bg-lines"></div>
-          <div class="hero-copy reveal">
-            <p class="kicker">Terapia psicológica en línea</p>
-            <h1>Un espacio seguro <em>para volver a ti.</em></h1>
-            <p class="hero-text">
-              Te acompaño en tu proceso de autoconocimiento, ansiedad, amor propio y crecimiento personal.
-            </p>
-            <div class="hero-actions">
-              <a class="primary-btn" href="#agendar">Agendar sesión <span><svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></span></a>
-              <a
-                class="secondary-btn"
-                href="https://wa.me/522211655438?text=Hola%20Karen%2C%20me%20gustar%C3%ADa%20agendar%20una%20sesi%C3%B3n%20de%20terapia%20en%20l%C3%ADnea."
-                target="_blank"
-                rel="noreferrer"
-              >
-                WhatsApp <span><svg class="icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.33 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01Zm-7 15.24h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 5.83 2.42 8.17 8.17 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.78.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23a7.48 7.48 0 0 1-1.38-1.72c-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.76-1.85-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.16 1.73 2.64 4.2 3.7.59.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg></span>
-              </a>
+          <div class="hero-container container">
+            <div class="hero-copy reveal">
+              <div class="kicker-badge">
+                <span class="pulse-dot"></span>
+                <span>Terapia psicológica en línea</span>
+              </div>
+              <h1>Un espacio seguro <em>para volver a ti.</em></h1>
+              <p class="hero-text">
+                Te acompaño en tu proceso de autoconocimiento, gestión de la ansiedad, amor propio y bienestar emocional.
+              </p>
+              <div class="hero-actions">
+                <a class="primary-btn" href="#agendar">
+                  Agendar sesión
+                  <span>
+                    <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                  </span>
+                </a>
+                <a
+                  class="secondary-btn"
+                  href="https://wa.me/522211655438?text=Hola%20Karen%2C%20me%20gustar%C3%ADa%20agendar%20una%20sesi%C3%B3n%20de%20terapia%20en%20l%C3%ADnea."
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span>
+                    <svg class="icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.33 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01Zm-7 15.24h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 5.83 2.42 8.17 8.17 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.78.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23a7.48 7.48 0 0 1-1.38-1.72c-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.76-1.85-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.16 1.73 2.64 4.2 3.7.59.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+                  </span>
+                  WhatsApp
+                </a>
+              </div>
+              <p class="safe-note">
+                <span>
+                  <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+                </span>
+                Atención 100% confidencial, empática y personalizada
+              </p>
             </div>
-            <p class="safe-note"><span><svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span></p>
-          </div>
-          <div class="hero-portrait-wrap reveal">
-            <img class="hero-person" src="./assets/karen-hero-current.png" alt="Karen Cardiel" />
+            <div class="hero-portrait-wrap reveal">
+              <div class="portrait-card">
+                <img class="hero-person" src="./assets/karen-hero-current.png" alt="Psicóloga Karen Cardiel" />
+              </div>
+            </div>
           </div>
         </section>
 
         <section id="sobre-mi" class="about-section">
-          <div class="about-water"></div>
-          <div class="about-copy reveal">
-            <p class="kicker small">Sobre mí</p>
-            <h2>Hola, soy <em>Karen Cardiel</em></h2>
-            <p>
-              Psicóloga y Maestra en Salud Mental.<br />
-              Creo profundamente que sanar comienza por conocernos.<br />
-              Mi objetivo es ofrecerte un espacio seguro, empático y libre de juicio donde puedas
-              sentirte en confianza para ser tú.
-            </p>
-            <span class="license-badge">Cédula profesional 12604790</span>
-            <a href="#agendar">Agenda tu primera sesión <span>→</span></a>
-          </div>
-          <div class="about-features reveal">
-            <article><span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><p>Enfoque humano<br />y empático</p></article>
-            <article><span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9.8a7 7 0 0 1-9 8.2Z"/><path d="M9 22v-4"/></svg></span><p>Terapia integral</p></article>
-            <article><span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span><p>Acompañamiento<br />integral y cálido</p></article>
+          <div class="container about-container">
+            <div class="about-copy reveal">
+              <p class="kicker small">Sobre mí</p>
+              <h2>Hola, soy <em>Karen Cardiel</em></h2>
+              <p class="about-lead">
+                Psicóloga y Maestra en Salud Mental.
+              </p>
+              <p class="about-bio">
+                Creo profundamente que sanar comienza por conocernos. Mi objetivo es ofrecerte un espacio seguro, empático y libre de juicio donde puedas expresarte con total libertad y confianza para reencontrarte contigo misma.
+              </p>
+              <div class="about-meta">
+                <span class="license-badge">
+                  <svg viewBox="0 0 24 24" class="icon-small" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4.5h10.5L18 6v13.5l-1.5 1.5H6L4.5 19.5V6L6 4.5Z"/><path d="M8 9h8M8 12h8M8 15h5"/></svg>
+                  Cédula profesional 12604790
+                </span>
+                <a class="about-link" href="#agendar">Agenda tu primera sesión <span>→</span></a>
+              </div>
+            </div>
+            <div class="about-features reveal">
+              <article class="feature-item">
+                <span class="feature-icon">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                </span>
+                <div>
+                  <h4>Enfoque humano y empático</h4>
+                  <p>Escucha activa y respetuosa, centrada en tus necesidades individuales.</p>
+                </div>
+              </article>
+              <article class="feature-item">
+                <span class="feature-icon">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9.8a7 7 0 0 1-9 8.2Z"/><path d="M9 22v-4"/></svg>
+                </span>
+                <div>
+                  <h4>Terapia integral</h4>
+                  <p>Herramientas clínicas prácticas adaptadas a tu realidad y ritmo.</p>
+                </div>
+              </article>
+              <article class="feature-item">
+                <span class="feature-icon">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </span>
+                <div>
+                  <h4>Acompañamiento cálido</h4>
+                  <p>Un espacio seguro donde nunca caminarás sola durante tu proceso.</p>
+                </div>
+              </article>
+            </div>
           </div>
         </section>
 
         <section id="servicios" class="services-section">
-          <p class="kicker small">Servicios</p>
-          <h2>¿En qué puedo acompañarte?</h2>
-          <div class="services-grid">
-            <article class="service-card reveal">
-              <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8c4-4 8 4 12 0s8-4 8-4M2 16c4-4 8 4 12 0s8-4 8-4"/></svg></span>
-              <h3>Ansiedad</h3>
-              <p>Aprende a gestionar tus emociones y recuperar tu calma.</p>
-            </article>
-            <article class="service-card reveal">
-              <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
-              <h3>Amor propio</h3>
-              <p>Construye una relación más sana contigo misma.</p>
-            </article>
-            <article class="service-card reveal">
-              <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="m12 5-1 4.5 2.5 1.5-2 4 1.5 3.5"/></svg></span>
-              <h3>Rupturas y duelo</h3>
-              <p>Te acompaño a sanar y reconstruirte.</p>
-            </article>
-            <article class="service-card reveal">
-              <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-              <h3>Terapia individual</h3>
-              <p>Un espacio para ti, 100% personalizado.</p>
-            </article>
-            <article class="service-card reveal">
-              <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></span>
-              <h3>Talleres y cursos</h3>
-              <p>Herramientas prácticas para tu bienestar.</p>
-            </article>
+          <div class="container">
+            <div class="section-header reveal">
+              <p class="kicker small">Servicios</p>
+              <h2>¿En qué puedo <em>acompañarte?</em></h2>
+              <p class="section-subtitle">Áreas de especialidad y acompañamiento terapéutico individual.</p>
+            </div>
+            <div class="services-grid">
+              <article class="service-card reveal">
+                <span class="service-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8c4-4 8 4 12 0s8-4 8-4M2 16c4-4 8 4 12 0s8-4 8-4"/></svg></span>
+                <h3>Ansiedad</h3>
+                <p>Aprende a comprender y regular tus emociones para recuperar la tranquilidad en tu día a día.</p>
+              </article>
+              <article class="service-card reveal">
+                <span class="service-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+                <h3>Amor propio</h3>
+                <p>Fortalece tu autoestima, establece límites sanos y construye una relación compasiva contigo.</p>
+              </article>
+              <article class="service-card reveal">
+                <span class="service-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="m12 5-1 4.5 2.5 1.5-2 4 1.5 3.5"/></svg></span>
+                <h3>Rupturas y duelo</h3>
+                <p>Atraviesa el proceso de pérdida, procesa el dolor y encuentra el camino para reconstruirte.</p>
+              </article>
+              <article class="service-card reveal">
+                <span class="service-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                <h3>Terapia individual</h3>
+                <p>Sesiones en línea de 50 a 60 minutos con atención 100% personalizada y confidencial.</p>
+              </article>
+              <article class="service-card reveal">
+                <span class="service-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></span>
+                <h3>Talleres y cursos</h3>
+                <p>Espacios psicoeducativos prácticos para adquirir herramientas de crecimiento continuo.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="proceso" class="process-section">
+          <div class="container">
+            <div class="section-header reveal">
+              <p class="kicker small">Metodología en línea</p>
+              <h2>¿Cómo iniciar tu <em>proceso terapéutico?</em></h2>
+              <p class="section-subtitle">
+                Tres sencillos pasos para comenzar tu camino de bienestar, autoconocimiento y salud mental.
+              </p>
+            </div>
+            <div class="process-grid">
+              <div class="process-card reveal">
+                <div class="process-card-top">
+                  <span class="process-badge">Paso 01</span>
+                  <span class="process-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                  </span>
+                </div>
+                <h3>Elige tu día y horario</h3>
+                <p>
+                  Selecciona la fecha tentativa en el calendario y llena el formulario con tus datos. Nos pondremos en contacto contigo por WhatsApp para coordinar tu cita.
+                </p>
+              </div>
+
+              <div class="process-card reveal">
+                <div class="process-card-top">
+                  <span class="process-badge">Paso 02</span>
+                  <span class="process-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                  </span>
+                </div>
+                <h3>Confirma tu sesión</h3>
+                <p>
+                  Realiza tu pago por transferencia bancaria (SPEI). Al recibir tu comprobante, te compartiremos el enlace privado de Google Meet 24 horas antes de la sesión.
+                </p>
+              </div>
+
+              <div class="process-card reveal">
+                <div class="process-card-top">
+                  <span class="process-badge">Paso 03</span>
+                  <span class="process-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+                  </span>
+                </div>
+                <h3>Conéctate y vuelve a ti</h3>
+                <p>
+                  El día acordado, ingresa desde tu celular, tablet o computadora en un lugar tranquilo y seguro para comenzar a trabajar en tu bienestar y crecimiento personal.
+                </p>
+              </div>
+            </div>
+
+            <div class="process-footer-cta reveal">
+              <p>¿Estás lista para dar el primer paso hacia tu calma?</p>
+              <a class="primary-btn" href="#agendar">
+                Agendar mi primera sesión
+                <span>→</span>
+              </a>
+            </div>
           </div>
         </section>
 
         <section id="terapia" class="why-section">
-          <p class="kicker small">¿Por qué terapia?</p>
-          <h2>Pedir ayuda también es un acto de <em>amor propio</em></h2>
-          <p class="why-intro">
-            La terapia es un proceso para entenderte, soltar lo que pesa y construir herramientas
-            que te acompañen toda la vida. No necesitas estar en crisis para empezar.
-          </p>
-          <div class="why-grid">
-            <article class="why-card reveal">
-              <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8c4-4 8 4 12 0s8-4 8-4M2 16c4-4 8 4 12 0s8-4 8-4"/></svg></span>
-              <h3>Te entiendes mejor</h3>
-              <p>Identificas patrones, emociones y pensamientos que hoy te limitan.</p>
-            </article>
-            <article class="why-card reveal">
-              <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
-              <h3>Sanas a tu ritmo</h3>
-              <p>Un espacio libre de juicio, confidencial y a tu medida.</p>
-            </article>
-            <article class="why-card reveal">
-              <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span>
-              <h3>Recuperas tu calma</h3>
-              <p>Aprendes a gestionar la ansiedad y a regular lo que sientes.</p>
-            </article>
-            <article class="why-card reveal">
-              <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-              <h3>Avanzas con apoyo</h3>
-              <p>Acompañamiento profesional y cálido en cada paso del proceso.</p>
-            </article>
+          <div class="container">
+            <div class="section-header reveal">
+              <p class="kicker small">¿Por qué terapia?</p>
+              <h2>Pedir ayuda también es un acto de <em>amor propio</em></h2>
+              <p class="why-intro">
+                La terapia es un proceso para entenderte, soltar lo que pesa y construir herramientas que te acompañen toda la vida. No necesitas estar en crisis para empezar.
+              </p>
+            </div>
+            <div class="why-grid">
+              <article class="why-card reveal">
+                <span class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8c4-4 8 4 12 0s8-4 8-4M2 16c4-4 8 4 12 0s8-4 8-4"/></svg></span>
+                <h3>Te entiendes mejor</h3>
+                <p>Identificas patrones, emociones y creencias que hoy te limitan para transformarlas conscientemente.</p>
+              </article>
+              <article class="why-card reveal">
+                <span class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+                <h3>Sanas a tu ritmo</h3>
+                <p>Un espacio libre de juicio, respetuoso y confidencial, donde tus tiempos son la prioridad.</p>
+              </article>
+              <article class="why-card reveal">
+                <span class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span>
+                <h3>Recuperas tu calma</h3>
+                <p>Desarrollas estrategias efectivas para gestionar la ansiedad y regular tus estados de ánimo.</p>
+              </article>
+              <article class="why-card reveal">
+                <span class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                <h3>Avanzas con apoyo</h3>
+                <p>Acompañamiento profesional y calidez clínica en cada etapa de tu transformación personal.</p>
+              </article>
+            </div>
           </div>
         </section>
 
@@ -213,63 +382,253 @@
         </section>
 
         <section id="agendar" class="booking-section">
-          <div class="booking-copy reveal">
-            <p class="kicker small">Agenda tu sesión</p>
-            <h2>Es momento de elegirte.</h2>
-            <p>Completa el formulario y me pondré en contacto contigo para agendar tu sesión.</p>
-            <ul>
-              <li><span><svg class="list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="3" y="4" rx="2" ry="2"/><line x1="2" x2="22" y1="20" y2="20"/><line x1="5" x2="19" y1="16" y2="16"/></svg></span> Atención 100% en línea</li>
-              <li><span><svg class="list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> Horarios flexibles</li>
-              <li><span><svg class="list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></span> Confidencialidad garantizada</li>
-            </ul>
-          </div>
-
-          <form id="appointment-form" class="booking-form reveal">
-            <label for="booking-nombre" class="sr-only">Nombre completo</label>
-            <input id="booking-nombre" name="nombre" type="text" autocomplete="name" placeholder="Nombre completo" required />
-            
-            <label for="booking-edad" class="sr-only">Edad</label>
-            <input id="booking-edad" name="edad" type="number" min="12" max="100" inputmode="numeric" placeholder="Edad" required />
-            
-            <label for="booking-whatsapp" class="sr-only">WhatsApp</label>
-            <input id="booking-whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="WhatsApp" required />
-            
-            <label for="booking-motivo" class="sr-only">Motivo de consulta</label>
-            <select id="booking-motivo" name="motivo" required>
-              <option value="">¿Cuál es el motivo de tu consulta?</option>
-              <option>Ansiedad</option>
-              <option>Amor propio</option>
-              <option>Rupturas y duelo</option>
-              <option>Terapia individual</option>
-              <option>Talleres y cursos</option>
-              <option>Otros motivos</option>
-            </select>
-            
-            <input name="fecha" type="hidden" />
-            
-            <label for="booking-horario" class="sr-only">Horario preferido</label>
-            <input id="booking-horario" name="horario" type="text" placeholder="Horario preferido" required />
-            
-            <button type="submit">Enviar por WhatsApp <span><svg class="icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.33 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01Zm-7 15.24h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 5.83 2.42 8.17 8.17 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.78.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23a7.48 7.48 0 0 1-1.38-1.72c-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.76-1.85-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.16 1.73 2.64 4.2 3.7.59.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg></span></button>
-          </form>
-
-          <aside class="calendar-card reveal">
-            <h3>Elige tu mejor día</h3>
-            <div class="calendar-title">
-              <button type="button" class="calendar-prev" aria-label="Mes anterior">‹</button>
-              <strong class="calendar-month" aria-live="polite"></strong>
-              <button type="button" class="calendar-next" aria-label="Mes siguiente">›</button>
+          <div class="container booking-container">
+            <div class="booking-copy reveal">
+              <p class="kicker small">Agenda tu sesión</p>
+              <h2>Es momento de <em>elegirte.</em></h2>
+              <p class="booking-desc">Completa tus datos y selecciona tu día preferido. Te responderé por WhatsApp para confirmar tu horario.</p>
+              <ul class="booking-highlights">
+                <li>
+                  <span class="highlight-icon"><svg class="list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="12" x="3" y="4" rx="2" ry="2"/><line x1="2" x2="22" y1="20" y2="20"/><line x1="5" x2="19" y1="16" y2="16"/></svg></span>
+                  <span><strong>Atención 100% en línea</strong> (Google Meet)</span>
+                </li>
+                <li>
+                  <span class="highlight-icon"><svg class="list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                  <span><strong>Sesiones de 50 a 60 min</strong> semanales</span>
+                </li>
+                <li>
+                  <span class="highlight-icon"><svg class="list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></span>
+                  <span><strong>Confidencialidad 100%</strong> garantizada</span>
+                </li>
+              </ul>
             </div>
-            <div class="calendar-grid" aria-label="Calendario de citas"></div>
-            <p class="calendar-selection" aria-live="polite">Selecciona una fecha disponible.</p>
-          </aside>
+
+            <form id="appointment-form" class="booking-form reveal">
+              <div class="form-group">
+                <label for="booking-nombre">Nombre completo</label>
+                <input id="booking-nombre" name="nombre" type="text" autocomplete="name" placeholder="Ej. Ana Martínez" required />
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="booking-edad">Edad</label>
+                  <input id="booking-edad" name="edad" type="number" min="12" max="100" inputmode="numeric" placeholder="Ej. 28" required />
+                </div>
+                <div class="form-group">
+                  <label for="booking-whatsapp">WhatsApp</label>
+                  <input id="booking-whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="Ej. 55 1234 5678" required />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="booking-motivo">Motivo de consulta</label>
+                <select id="booking-motivo" name="motivo" required>
+                  <option value="">Selecciona el motivo principal</option>
+                  <option>Ansiedad y estrés</option>
+                  <option>Amor propio y autoestima</option>
+                  <option>Rupturas de pareja y duelo</option>
+                  <option>Terapia individual general</option>
+                  <option>Talleres y cursos</option>
+                  <option>Otro motivo</option>
+                </select>
+              </div>
+              
+              <input name="fecha" type="hidden" />
+              
+              <div class="form-group">
+                <label for="booking-horario">Horario preferido</label>
+                <input id="booking-horario" name="horario" type="text" placeholder="Ej. Por la tarde (después de 4pm)" required />
+              </div>
+              
+              <button class="booking-submit-btn" type="submit">
+                <span>Continuar por WhatsApp</span>
+                <svg class="icon-small" viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.33 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01Zm-7 15.24h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 5.83 2.42 8.17 8.17 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.78.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23a7.48 7.48 0 0 1-1.38-1.72c-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.76-1.85-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.16 1.73 2.64 4.2 3.7.59.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+              </button>
+            </form>
+
+            <aside class="calendar-card reveal">
+              <div class="calendar-header">
+                <h3>Elige tu fecha</h3>
+                <p>Selecciona el día tentativo para tu sesión</p>
+              </div>
+              <div class="calendar-title">
+                <button type="button" class="calendar-prev" aria-label="Mes anterior">‹</button>
+                <strong class="calendar-month" aria-live="polite"></strong>
+                <button type="button" class="calendar-next" aria-label="Mes siguiente">›</button>
+              </div>
+              <div class="calendar-grid" aria-label="Calendario de citas"></div>
+              <div class="calendar-status-box">
+                <p class="calendar-selection" aria-live="polite">Selecciona una fecha disponible en el calendario.</p>
+              </div>
+            </aside>
+          </div>
         </section>
 
         <section id="testimonios" class="testimonials-section">
-          <article class="reveal">“Gracias por escucharme incluso cuando no sabía cómo expresar lo que sentía. Cada sesión ha sido un espacio seguro donde he podido crecer, sanar y conocerme más.”</article>
-          <article class="reveal">“Gracias por su dedicación, profesionalismo y la gran labor que hace como psicóloga. Se nota el amor y compromiso con el que ayuda a las personas.”</article>
-          <article class="reveal">“Las terapias me han ayudado mucho a sentirme más tranquila y entender mejor mis emociones. Ha sido un espacio muy cómodo y de mucho apoyo.”</article>
-          <article class="reveal">“Me has ayudado mucho. Sé que esto es un proceso, pero me has ayudado a sentirme mejor y trabajar en mi mejor versión.”</article>
+          <div class="container">
+            <div class="section-header reveal">
+              <p class="kicker small">Testimonios</p>
+              <h2>Lo que dicen quienes han <em>iniciado su proceso</em></h2>
+              <p class="section-subtitle">Experiencias reales de pacientes acompañadas en consulta.</p>
+            </div>
+            <div class="testimonials-grid">
+              <article class="testimonial-card reveal">
+                <div class="stars">★★★★★</div>
+                <blockquote>“Gracias por escucharme incluso cuando no sabía cómo expresar lo que sentía. Cada sesión ha sido un espacio seguro donde he podido crecer, sanar y conocerme más.”</blockquote>
+                <div class="patient-info">
+                  <span class="patient-avatar">M</span>
+                  <div>
+                    <strong>Mariana G.</strong>
+                    <span>Terapia en línea</span>
+                  </div>
+                </div>
+              </article>
+              <article class="testimonial-card reveal">
+                <div class="stars">★★★★★</div>
+                <blockquote>“Gracias por su dedicación, profesionalismo y la gran labor que hace como psicóloga. Se nota el amor y compromiso con el que ayuda a las personas.”</blockquote>
+                <div class="patient-info">
+                  <span class="patient-avatar">C</span>
+                  <div>
+                    <strong>Carolina R.</strong>
+                    <span>Terapia de ansiedad</span>
+                  </div>
+                </div>
+              </article>
+              <article class="testimonial-card reveal">
+                <div class="stars">★★★★★</div>
+                <blockquote>“Las terapias me han ayudado mucho a sentirme más tranquila y entender mejor mis emociones. Ha sido un espacio muy cómodo y de mucho apoyo.”</blockquote>
+                <div class="patient-info">
+                  <span class="patient-avatar">S</span>
+                  <div>
+                    <strong>Sofía T.</strong>
+                    <span>Amor propio y bienestar</span>
+                  </div>
+                </div>
+              </article>
+              <article class="testimonial-card reveal">
+                <div class="stars">★★★★★</div>
+                <blockquote>“Me has ayudado mucho. Sé que esto es un proceso, pero me has ayudado a sentirme mejor y trabajar en mi mejor versión cada semana.”</blockquote>
+                <div class="patient-info">
+                  <span class="patient-avatar">P</span>
+                  <div>
+                    <strong>Paola M.</strong>
+                    <span>Terapia individual</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+          <div class="faq-container reveal">
+            <p class="kicker small">Dudas frecuentes</p>
+            <h2>Preguntas <em>frecuentes</em></h2>
+            <p class="faq-intro">
+              Todo lo que necesitas saber sobre la modalidad en línea, tiempos, métodos de pago y confidencialidad.
+            </p>
+
+            <div class="faq-accordion" id="faq-accordion">
+              <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-ans-1" id="faq-q-1">
+                  <span class="faq-q-text">¿Cómo funciona la terapia en línea y qué plataforma se usa?</span>
+                  <span class="faq-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                  </span>
+                </button>
+                <div class="faq-answer" id="faq-ans-1" role="region" aria-labelledby="faq-q-1">
+                  <div class="faq-answer-inner">
+                    <p>
+                      Después de agendar tu cita y enviar tu comprobante de pago con al menos <strong>24 horas de anticipación</strong> a la sesión, te compartiremos el enlace privado de <strong>Google Meet</strong> para acceder cómodamente desde tu computadora, tablet o celular en un espacio privado y tranquilo.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-ans-2" id="faq-q-2">
+                  <span class="faq-q-text">¿Cuánto dura cada sesión y con qué frecuencia se toman?</span>
+                  <span class="faq-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                  </span>
+                </button>
+                <div class="faq-answer" id="faq-ans-2" role="region" aria-labelledby="faq-q-2">
+                  <div class="faq-answer-inner">
+                    <p>
+                      Cada sesión individual tiene una duración de <strong>50 a 60 minutos</strong>. Regularmente se programan con frecuencia <strong>semanal</strong> para acompañar tu proceso de autoconocimiento de manera continua y efectiva.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-ans-3" id="faq-q-3">
+                  <span class="faq-q-text">¿Qué métodos de pago se aceptan?</span>
+                  <span class="faq-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                  </span>
+                </button>
+                <div class="faq-answer" id="faq-ans-3" role="region" aria-labelledby="faq-q-3">
+                  <div class="faq-answer-inner">
+                    <p>
+                      Los pagos se realizan mediante <strong>transferencia bancaria (SPEI)</strong>. Al solicitar tu sesión, te proporcionaremos los datos de la cuenta para que puedas realizar tu transferencia de forma rápida y segura.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-ans-4" id="faq-q-4">
+                  <span class="faq-q-text">¿Qué pasa si necesito reprogramar o cancelar una sesión?</span>
+                  <span class="faq-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                  </span>
+                </button>
+                <div class="faq-answer" id="faq-ans-4" role="region" aria-labelledby="faq-q-4">
+                  <div class="faq-answer-inner">
+                    <p>
+                      En caso de cancelación o reprogramación, se solicita avisar con <strong>al menos 24 horas de anticipación</strong>. De lo contrario, la sesión se considerará como tomada.
+                    </p>
+                    <p>
+                      Solo en situaciones específicas y de fuerza mayor avisadas con tiempo se podrá reagendar. Si no te presentas a la sesión sin previo aviso, el pago no será reembolsable.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-ans-5" id="faq-q-5">
+                  <span class="faq-q-text">¿Mis datos y conversaciones son 100% confidenciales?</span>
+                  <span class="faq-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                  </span>
+                </button>
+                <div class="faq-answer" id="faq-ans-5" role="region" aria-labelledby="faq-q-5">
+                  <div class="faq-answer-inner">
+                    <p>
+                      <strong>Confidencialidad 100%.</strong> Toda la información compartida durante las sesiones será estrictamente confidencial y protegida conforme al código ético profesional del psicólogo.
+                    </p>
+                    <p>La confidencialidad únicamente podrá romperse en las siguientes situaciones excepcionales:</p>
+                    <ul class="faq-confidential-list">
+                      <li>Riesgo de daño grave hacia ti mismo/a.</li>
+                      <li>Riesgo de daño hacia otras personas.</li>
+                      <li>Cuando sea requerido expresamente por una autoridad legal competente.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-cta-box">
+              <p>¿Tienes alguna duda adicional o quieres comenzar tu proceso?</p>
+              <div class="faq-cta-actions">
+                <a class="primary-btn" href="#agendar">Agendar mi sesión</a>
+                <a class="secondary-btn" href="https://wa.me/522211655438?text=Hola%20Karen%2C%20tengo%20una%20duda%20antes%20de%20agendar%20mi%20sesi%C3%B3n." target="_blank" rel="noreferrer">
+                  Preguntar por WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
 
@@ -286,10 +645,13 @@
       </a>
 
       <footer id="contacto" class="site-footer">
-        <div class="footer-main">
-          <img src="./assets/karen-logo-uploaded.png" alt="Karen Cardiel Psicóloga" loading="lazy" decoding="async" />
+        <div class="footer-main container">
+          <div class="footer-brand">
+            <img src="./assets/karen-logo-uploaded.png" alt="Karen Cardiel Psicóloga" loading="lazy" decoding="async" />
+            <p class="brand-sub">Terapia psicológica en línea para reencontrarte contigo misma.</p>
+          </div>
           <div class="footer-contact">
-            <p>Contacto</p>
+            <p class="footer-heading">Contacto directo</p>
             <span class="footer-line footer-license">
               <span class="contact-icon contact-icon-license" aria-hidden="true">
                 <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
@@ -327,21 +689,16 @@
               <span>karencardiel.psicologa@gmail.com</span>
             </a>
           </div>
-          <form id="newsletter-form" class="newsletter">
-            <label for="newsletter-email">Suscríbete a mi espacio</label>
-            <span>Recibe contenidos que te acompañan en tu proceso de crecimiento.</span>
-            <div>
-              <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="Tu correo electrónico" required />
-              <button type="submit" aria-label="Enviar"><svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-            </div>
-            <p class="newsletter-status" aria-live="polite"></p>
-          </form>
         </div>
         <div class="footer-bar">
-          <span>© <span id="footer-year">2026</span> Psicóloga Karen Cardiel. Todos los derechos reservados.</span>
-          <a href="./aviso-privacidad.html">Aviso de privacidad</a>
-          <a href="./terminos.html">Términos y condiciones</a>
-          <a href="./dashboard.html" style="opacity: 0.5; margin-left: 8px;" title="Acceso de administración">🔒</a>
+          <div class="container footer-bar-content">
+            <span>© <span id="footer-year">2026</span> Psicóloga Karen Cardiel. Todos los derechos reservados.</span>
+            <div class="footer-legal-links">
+              <a href="./aviso-privacidad.html">Aviso de privacidad</a>
+              <a href="./terminos.html">Términos y condiciones</a>
+              <a href="./dashboard.html" class="admin-lock-link" title="Acceso de administración">🔒</a>
+            </div>
+          </div>
         </div>
         <div class="footer-credit">
           <a href="http://www.freewillstudiotech.com" target="_blank" rel="noopener noreferrer">

@@ -124,12 +124,6 @@
             <span>Agenda / Citas</span>
           </a>
         </li>
-        <li class="menu-item" data-tab="newsletter">
-          <a>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <span>Newsletter</span>
-          </a>
-        </li>
         <li class="menu-item" data-tab="finanzas">
           <a>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -204,17 +198,6 @@
             </div>
             <div class="metric-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-info">
-              <h3>Suscritos Newsletter</h3>
-              <div class="metric-value" id="stat-newsletter-subscribers">0</div>
-              <span class="metric-change up">Lectores del boletín</span>
-            </div>
-            <div class="metric-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
           </div>
         </div>
@@ -337,56 +320,6 @@
             <tbody>
             </tbody>
           </table>
-        </div>
-      </section>
-      
-      <!-- ================= TAB: NEWSLETTER ================= -->
-      <section id="tab-newsletter" class="tab-content">
-        <div class="section-header">
-          <div class="section-title">
-            <h2>Boletín Semanal</h2>
-            <p>Redacta y envía el correo semanal a las personas suscritas a tu espacio.</p>
-          </div>
-        </div>
-        
-        <div class="charts-grid">
-          <div class="chart-card">
-            <div class="chart-header">
-              <h3>Redactar Correo</h3>
-            </div>
-            <form id="newsletter-send-form" class="newsletter-compose">
-              <div class="form-group">
-                <label for="newsletter-subject">Asunto del Correo</label>
-                <input type="text" id="newsletter-subject" placeholder="Ej: Un espacio para volver a ti..." required>
-              </div>
-              <div class="form-group">
-                <label for="newsletter-body">Contenido de la Newsletter</label>
-                <div class="rich-editor-wrapper">
-                  <div class="editor-toolbar">
-                    <button type="button" class="editor-btn" onclick="wrapText('**', '**')"><b>B</b></button>
-                    <button type="button" class="editor-btn" onclick="wrapText('*', '*')"><i>I</i></button>
-                    <button type="button" class="editor-btn" onclick="wrapText('\n- ', '')">Bullet List</button>
-                  </div>
-                  <textarea id="newsletter-body" class="editor-textarea" placeholder="Escribe aquí tu correo con cariño..." required></textarea>
-                </div>
-              </div>
-              <button type="submit" class="primary-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                Enviar a todos los suscriptores
-              </button>
-            </form>
-          </div>
-          
-          <div class="chart-card">
-            <div class="chart-header">
-              <h3>Lista de Suscriptores</h3>
-            </div>
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Estos son los correos registrados en tu web.</p>
-            <div style="max-height: 380px; overflow-y: auto; padding-right: 4px;">
-              <div id="newsletter-subscribers-list" class="subscribers-list">
-              </div>
-            </div>
-          </div>
         </div>
       </section>
       

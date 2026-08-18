@@ -18,6 +18,31 @@ if (menuToggle && siteHeader) {
       menuToggle.setAttribute("aria-expanded", "false");
     });
   });
+
+  // Resaltado de enlace activo según la sección visible
+  const observedSections = document.querySelectorAll("section[id], footer[id]");
+  const observerOptions = {
+    root: null,
+    rootMargin: "-20% 0px -70% 0px",
+    threshold: 0
+  };
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute("id");
+        navLinks.forEach((link) => {
+          if (link.getAttribute("href") === `#${id}`) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  observedSections.forEach((section) => navObserver.observe(section));
 }
 
 const footerYear = document.querySelector("#footer-year");
@@ -54,9 +79,7 @@ if (cookieBanner) {
 }
 
 const form = document.querySelector("#appointment-form");
-const newsletterForm = document.querySelector("#newsletter-form");
-const newsletterStatus = newsletterForm.querySelector(".newsletter-status");
-const dateInput = form.querySelector('input[name="fecha"]');
+const dateInput = form ? form.querySelector('input[name="fecha"]') : null;
 const calendar = document.querySelector(".calendar-card");
 const monthLabel = calendar.querySelector(".calendar-month");
 const calendarGrid = calendar.querySelector(".calendar-grid");
@@ -149,8 +172,9 @@ const renderCalendar = () => {
     button.addEventListener("click", () => {
       selectedDate = date;
       dateInput.value = isoDateFormatter.format(date);
-      selectionLabel.textContent = `Fecha seleccionada: ${formatReadableDate(date)}`;
-      selectionLabel.style.color = "rgba(41, 41, 40, 0.64)"; // Restaurar color por defecto
+      selectionLabel.textContent = `✓ Fecha seleccionada: ${formatReadableDate(date)}`;
+      selectionLabel.style.color = "var(--blue-dark)";
+      selectionLabel.style.fontWeight = "600";
       renderCalendar();
     });
 
@@ -196,54 +220,33 @@ form.addEventListener("submit", (event) => {
   window.open(url, "_blank", "noopener,noreferrer");
 });
 
-// Sincronización del formulario de Newsletter
-newsletterForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
+// Control del Acordeón de Preguntas Frecuentes (FAQ)
+const faqItems = document.querySelectorAll(".faq-item");
+faqItems.forEach((item) => {
+  const button = item.querySelector(".faq-question");
+  if (!button) return;
 
-  if (!newsletterForm.checkValidity()) {
-    newsletterForm.reportValidity();
-    return;
-  }
+  button.addEventListener("click", () => {
+    const isOpen = item.classList.contains("is-open");
 
-  const data = new FormData(newsletterForm);
-  const email = data.get("email").trim().toLowerCase();
-
-  newsletterStatus.textContent = "Procesando tu suscripción...";
-  newsletterStatus.style.color = "var(--blue)";
-
-  const todayDate = new Date().toISOString().split('T')[0];
-
-  try {
-    // 1. Enviar al endpoint seguro del backend en Vercel
-    const response = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email })
+    // Cerrar los demás items para mantener un diseño limpio (opcional y cómodo)
+    faqItems.forEach((otherItem) => {
+      if (otherItem !== item) {
+        otherItem.classList.remove("is-open");
+        const otherBtn = otherItem.querySelector(".faq-question");
+        if (otherBtn) otherBtn.setAttribute("aria-expanded", "false");
+      }
     });
 
-    if (!response.ok) {
-      console.warn("Backend API not reachable or unconfigured. Saving to local storage cache.");
+    // Alternar el item actual
+    if (isOpen) {
+      item.classList.remove("is-open");
+      button.setAttribute("aria-expanded", "false");
+    } else {
+      item.classList.add("is-open");
+      button.setAttribute("aria-expanded", "true");
     }
-  } catch (e) {
-    console.error("Error al contactar con el servidor de suscripción:", e);
-  }
-
-  // 2. Respaldo local de caché en el navegador (para visualización inmediata)
-  try {
-    let subs = JSON.parse(localStorage.getItem("karen_subscribers")) || [];
-    if (!subs.some(s => s.email === email)) {
-      subs.push({ email, date: todayDate });
-      localStorage.setItem("karen_subscribers", JSON.stringify(subs));
-    }
-  } catch (e) {
-    console.error("Error al guardar respaldo local:", e);
-  }
-
-  newsletterStatus.textContent = "¡Gracias por suscribirte! Te has registrado con éxito.";
-  newsletterStatus.style.color = "#3f9f72"; // Verde éxito
-  newsletterForm.reset();
+  });
 });
 
 if (window.gsap && window.ScrollTrigger) {
