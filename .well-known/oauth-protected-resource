@@ -1,7 +1,8 @@
 {
   "resource": "https://www.karencardiel.com",
   "authorization_servers": [
-    "https://www.karencardiel.com"
+    "https://www.karencardiel.com",
+    "https://karencardiel.com"
   ],
   "scopes_supported": [
     "read:services",

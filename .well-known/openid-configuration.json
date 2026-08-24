@@ -35,11 +35,21 @@
     "private_key_jwt"
   ],
   "agent_auth": {
-    "skill": "https://www.karencardiel.com/.well-known/agent-skills/auth-md/SKILL.md",
+    "skill": "https://www.karencardiel.com/auth.md",
     "register_uri": "https://www.karencardiel.com/agent/auth",
+    "identity_endpoint": "https://www.karencardiel.com/agent/auth",
+    "claim_endpoint": "https://www.karencardiel.com/agent/claim",
+    "claim_uri": "https://www.karencardiel.com/agent/claim",
+    "events_endpoint": "https://www.karencardiel.com/agent/events",
+    "revocation_uri": "https://www.karencardiel.com/agent/revoke",
+    "events_supported": [
+      "https://schemas.workos.com/events/agent/auth",
+      "revocation"
+    ],
     "identity_types_supported": [
+      "anonymous",
       "identity_assertion",
-      "anonymous"
+      "service_auth"
     ],
     "identity_assertion": {
       "assertion_types_supported": [
@@ -57,7 +67,6 @@
         "bearer_token"
       ],
       "claim_uri": "https://www.karencardiel.com/agent/claim"
-    },
-    "claim_uri": "https://www.karencardiel.com/agent/claim"
+    }
   }
 }

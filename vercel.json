@@ -219,5 +219,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/agent/auth", "destination": "/api/agent-auth.js" },
+    { "source": "/agent/claim", "destination": "/api/agent-auth.js" },
+    { "source": "/agent/events", "destination": "/api/agent-auth.js" },
+    { "source": "/agent/revoke", "destination": "/api/agent-auth.js" }
   ]
 }
