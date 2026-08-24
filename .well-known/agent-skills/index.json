@@ -21,6 +21,13 @@
       "description": "Procedimiento para registrar usuarios en el newsletter de salud mental y autocuidado de la Psicóloga Karen Cardiel.",
       "url": "https://www.karencardiel.com/.well-known/agent-skills/newsletter-subscription/SKILL.md",
       "digest": "sha256:b59efe29c158b973e7438ee674a53763f5f02d907e32509a6596b96267b0a808"
+    },
+    {
+      "name": "auth-md",
+      "type": "skill-md",
+      "description": "Registro y autenticación automatizada para agentes de Inteligencia Artificial (Auth.md).",
+      "url": "https://www.karencardiel.com/.well-known/agent-skills/auth-md/SKILL.md",
+      "digest": "sha256:40ed49cc7dba96ad4f28cf690098dc4d435efd23a3e411ba85fb4e9a06504820"
     }
   ]
 }
