@@ -1,0 +1,15 @@
+{
+  "resource": "https://www.karencardiel.com",
+  "authorization_servers": [
+    "https://www.karencardiel.com"
+  ],
+  "scopes_supported": [
+    "read:services",
+    "write:appointments",
+    "write:newsletter"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ],
+  "resource_documentation": "https://www.karencardiel.com/docs/api.html"
+}

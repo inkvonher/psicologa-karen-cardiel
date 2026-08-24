@@ -1,0 +1,84 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/specification/main/schema/server-card.json",
+  "serverInfo": {
+    "name": "psicologa-karen-cardiel-mcp",
+    "version": "1.0.0",
+    "title": "Psicóloga Karen Cardiel MCP Server",
+    "description": "Servidor MCP oficial para consultar servicios psicológicos, dudas frecuentes, agendar sesiones de terapia y suscripción al newsletter."
+  },
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://www.karencardiel.com/api/mcp"
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    },
+    "resources": {
+      "subscribe": false,
+      "listChanged": false
+    },
+    "prompts": {
+      "listChanged": false
+    }
+  },
+  "tools": [
+    {
+      "name": "get_services",
+      "description": "Obtener catálogo de servicios de psicología clínica ofrecidos por la Psicóloga Karen Cardiel (ansiedad, amor propio, duelo y rupturas, terapia individual y talleres).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_faq",
+      "description": "Obtener respuestas a preguntas frecuentes sobre modalidad en línea (Google Meet), duración de sesiones (50-60 min), políticas de cancelación (24h) y métodos de pago.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "generate_appointment_whatsapp_link",
+      "description": "Generar el enlace directo y mensaje pre-rellenado de WhatsApp (+52 221 165 5438) para que el paciente agende su cita.",
+      "inputSchema": {
+        "type": "object",
+        "required": ["name", "service_or_reason"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nombre completo del paciente"
+          },
+          "service_or_reason": {
+            "type": "string",
+            "description": "Motivo de consulta o servicio requerido (ej. Ansiedad, Amor propio, Rupturas)"
+          },
+          "preferred_date": {
+            "type": "string",
+            "description": "Fecha preferida sugerida (ej. 2026-09-01)"
+          },
+          "preferred_time": {
+            "type": "string",
+            "description": "Horario preferido (ej. 10:00 AM, 5:00 PM)"
+          }
+        }
+      }
+    },
+    {
+      "name": "subscribe_newsletter",
+      "description": "Registrar un correo en la lista de correo de salud mental y bienestar.",
+      "inputSchema": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Correo electrónico a registrar"
+          }
+        }
+      }
+    }
+  ]
+}

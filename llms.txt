@@ -1,0 +1,34 @@
+# Psicóloga Karen Cardiel
+
+> Psicología clínica y psicoterapia en línea con enfoque compasivo e integrativo para ansiedad, amor propio, rupturas, duelo y crecimiento personal.
+
+## Información Principal
+
+- **Profesional:** Mtra. Karen Cardiel
+- **Contacto WhatsApp:** +52 221 165 5438
+- **Correo Electrónico:** karencardiel.psicologa@gmail.com
+- **Modalidad:** Sesiones individuales en línea vía Google Meet (50 - 60 minutos)
+- **Pagos:** Transferencia bancaria (SPEI en México)
+- **Instagram:** @karencardiel.psicologa
+
+## Servicios
+
+- [Terapia para Ansiedad](https://www.karencardiel.com/#servicios): Identificación de detonantes, herramientas de autorregulación y calma emocional.
+- [Terapia de Amor Propio](https://www.karencardiel.com/#servicios): Autoestima, reestructuración del diálogo interno y límites asertivos.
+- [Acompañamiento en Rupturas y Duelo](https://www.karencardiel.com/#servicios): Procesamiento compasivo de separaciones afectivas y pérdidas significativas.
+- [Terapia Individual Personalizada](https://www.karencardiel.com/#servicios): Espacio seguro adaptado a las necesidades de cada paciente.
+- [Talleres y Cursos](https://www.karencardiel.com/#servicios): Formación psicoeducativa y comunitaria en salud mental.
+
+## Preguntas Frecuentes y Políticas
+
+- **¿Cómo acceder a la sesión?** Tras confirmar cita y pago con 24h de anticipación, se envía enlace privado de Google Meet.
+- **¿Políticas de cancelación?** Reprogramaciones válidas con 24h de anticipación. Cancelaciones con menos tiempo o inasistencias no son reembolsables.
+
+## Recursos para Agentes de IA
+
+- [API Catalog](https://www.karencardiel.com/.well-known/api-catalog): Catálogo RFC 9727
+- [MCP Server Card](https://www.karencardiel.com/.well-known/mcp/server-card.json): SEP-1649 MCP Server
+- [AI Catalog (ARD)](https://www.karencardiel.com/.well-known/ai-catalog.json): Manifest ARD v1.0
+- [Agent Skills](https://www.karencardiel.com/.well-known/agent-skills/index.json): Índice de habilidades
+- [Auth.md](https://www.karencardiel.com/auth.md): Especificación de registro y autenticación
+- [OpenAPI Spec](https://www.karencardiel.com/openapi.json): Especificación OpenAPI 3.1

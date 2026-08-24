@@ -277,3 +277,124 @@ if (window.gsap && window.ScrollTrigger) {
     yoyo: true,
   });
 }
+
+// ==========================================
+// WebMCP (Web Model Context Protocol) para Agentes IA en Navegador
+// ==========================================
+function initWebMCP() {
+  const tools = [
+    {
+      name: "get_services",
+      description: "Obtener lista completa de servicios terapéuticos y modalidades de consulta con la Psicóloga Karen Cardiel.",
+      inputSchema: {
+        type: "object",
+        properties: {}
+      },
+      execute: async () => {
+        return {
+          services: [
+            { name: "Terapia para Ansiedad", focus: "Regulación somática, detonantes y calma", modality: "En línea (Google Meet)" },
+            { name: "Terapia de Amor Propio", focus: "Autoestima, límites saludables y diálogo compasivo", modality: "En línea (Google Meet)" },
+            { name: "Acompañamiento en Rupturas y Duelo", focus: "Cierre de ciclos y elaboración del dolor", modality: "En línea (Google Meet)" },
+            { name: "Terapia Individual Personalizada", focus: "Acompañamiento clínico integral", modality: "En línea (Google Meet)" },
+            { name: "Talleres y Cursos", focus: "Psicoeducación y crecimiento grupal", modality: "En línea" }
+          ]
+        };
+      }
+    },
+    {
+      name: "get_faq_and_policies",
+      description: "Consultar preguntas frecuentes, políticas de cancelación de citas y modalidades de pago.",
+      inputSchema: {
+        type: "object",
+        properties: {}
+      },
+      execute: async () => {
+        return {
+          session_duration: "50 a 60 minutos",
+          platform: "Google Meet",
+          payment_methods: "Transferencia bancaria SPEI (México)",
+          cancellation_policy: "Reprogramaciones con al menos 24 horas de anticipación sin costo adicional. Cancelaciones extemporáneas no son reembolsables."
+        };
+      }
+    },
+    {
+      name: "book_appointment",
+      description: "Generar mensaje predeterminado y abrir el canal de WhatsApp para agendar una sesión de terapia.",
+      inputSchema: {
+        type: "object",
+        required: ["patient_name", "service_or_reason"],
+        properties: {
+          patient_name: { type: "string", description: "Nombre completo de la persona interesada" },
+          service_or_reason: { type: "string", description: "Motivo de la consulta o tipo de terapia" },
+          preferred_date: { type: "string", description: "Fecha opcional deseada (YYYY-MM-DD)" },
+          preferred_time: { type: "string", description: "Horario opcional (ej. Mañana, Tarde, 11:00 AM)" }
+        }
+      },
+      execute: async (params) => {
+        const name = (params && params.patient_name) || "Paciente";
+        const reason = (params && params.service_or_reason) || "Consulta";
+        const date = params && params.preferred_date ? ` el día ${params.preferred_date}` : "";
+        const time = params && params.preferred_time ? ` a las ${params.preferred_time}` : "";
+        const text = `Hola Psic. Karen Cardiel, mi nombre es ${name}. Me gustaría solicitar informes y agendar una sesión de terapia enfocada en ${reason}${date}${time}.`;
+        const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+        return {
+          action: "whatsapp_link_generated",
+          url: waUrl,
+          message: text
+        };
+      }
+    },
+    {
+      name: "subscribe_to_newsletter",
+      description: "Suscribir una dirección de correo al boletín de salud mental y bienestar.",
+      inputSchema: {
+        type: "object",
+        required: ["email"],
+        properties: {
+          email: { type: "string", format: "email", description: "Correo electrónico del suscriptor" }
+        }
+      },
+      execute: async (params) => {
+        try {
+          const res = await fetch("/api/subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: params && params.email })
+          });
+          const data = await res.json();
+          return data;
+        } catch (err) {
+          return { error: err.message };
+        }
+      }
+    }
+  ];
+
+  // Exponer a window.__webMcpTools para compatibilidad con extensiones y frameworks de agentes
+  window.__webMcpTools = tools;
+
+  if (typeof navigator !== "undefined" && navigator.modelContext) {
+    try {
+      if (typeof navigator.modelContext.provideContext === "function") {
+        navigator.modelContext.provideContext({
+          tools: tools
+        });
+      }
+      if (typeof navigator.modelContext.registerTool === "function") {
+        tools.forEach((tool) => {
+          navigator.modelContext.registerTool(tool);
+        });
+      }
+    } catch (err) {
+      console.warn("WebMCP registration note:", err);
+    }
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initWebMCP);
+} else {
+  initWebMCP();
+}
+

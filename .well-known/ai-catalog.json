@@ -1,0 +1,53 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Psicóloga Karen Cardiel",
+    "identifier": "did:web:karencardiel.com"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:karencardiel.com:mcp:server",
+      "displayName": "Psicóloga Karen Cardiel MCP Server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.karencardiel.com/.well-known/mcp/server-card.json",
+      "representativeQueries": [
+        "cómo agendar cita de terapia con la psicóloga Karen Cardiel",
+        "qué servicios de terapia psicológica ofrece Karen Cardiel",
+        "información sobre terapia para ansiedad y amor propio",
+        "suscribirse al newsletter de salud mental"
+      ]
+    },
+    {
+      "identifier": "urn:air:karencardiel.com:openapi:api",
+      "displayName": "API de Servicios y Newsletter",
+      "type": "application/vnd.oai.openapi+json",
+      "url": "https://www.karencardiel.com/openapi.json",
+      "representativeQueries": [
+        "documentación de la API de Karen Cardiel",
+        "endpoint para registro de newsletter de salud mental",
+        "comprobar estado del servicio"
+      ]
+    },
+    {
+      "identifier": "urn:air:karencardiel.com:skills:index",
+      "displayName": "Índice de Habilidades de Agente (Agent Skills)",
+      "type": "application/json",
+      "url": "https://www.karencardiel.com/.well-known/agent-skills/index.json",
+      "representativeQueries": [
+        "habilidades de agente para agendamiento de citas",
+        "instrucciones de agente para suscripción a newsletter"
+      ]
+    },
+    {
+      "identifier": "urn:air:karencardiel.com:content:llms",
+      "displayName": "Guía de Contenidos para Modelos de Lenguaje (LLMs)",
+      "type": "text/markdown",
+      "url": "https://www.karencardiel.com/llms.txt",
+      "representativeQueries": [
+        "información general y semblanza de la psicóloga Karen Cardiel",
+        "preguntas frecuentes sobre terapia en línea y Google Meet",
+        "políticas de cancelación y pago"
+      ]
+    }
+  ]
+}

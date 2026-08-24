@@ -1,0 +1,25 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://www.karencardiel.com/api",
+      "service-desc": [
+        {
+          "href": "https://www.karencardiel.com/openapi.json",
+          "type": "application/vnd.oai.openapi+json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://www.karencardiel.com/docs/api.html",
+          "type": "text/html"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://www.karencardiel.com/api/health",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

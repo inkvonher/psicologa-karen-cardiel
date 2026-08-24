@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Documentación de API | Psicóloga Karen Cardiel</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #2d3748; background: #fdfbf7; }
+    h1, h2, h3 { color: #3a4d57; }
+    code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9em; }
+    pre { background: #2d3748; color: #f7fafc; padding: 16px; border-radius: 8px; overflow-x: auto; }
+    .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.75em; font-weight: 700; text-transform: uppercase; }
+    .badge-get { background: #c6f6d5; color: #22543d; }
+    .badge-post { background: #bee3f8; color: #2b6cb0; }
+  </style>
+</head>
+<body>
+  <h1>Documentación de API - Psicóloga Karen Cardiel</h1>
+  <p>Esta página documenta los endpoints y servicios públicos disponibles para agentes y desarrolladores.</p>
+
+  <div class="card">
+    <h2><span class="badge badge-get">GET</span> /api/health</h2>
+    <p>Comprueba el estado de salud de la API.</p>
+    <pre><code>curl https://www.karencardiel.com/api/health</code></pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="badge badge-post">POST</span> /api/subscribe</h2>
+    <p>Registra un correo en el boletín de bienestar y salud mental.</p>
+    <pre><code>curl -X POST https://www.karencardiel.com/api/subscribe \
+  -H "Content-Type: application/json" \
+  -d '{"email": "paciente@ejemplo.com"}'</code></pre>
+  </div>
+
+  <div class="card">
+    <h2><span class="badge badge-post">POST</span> /api/mcp</h2>
+    <p>Endpoint Model Context Protocol (MCP) Streamable HTTP para ejecución de herramientas por agentes IA.</p>
+    <pre><code>curl -X POST https://www.karencardiel.com/api/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc": "2.0", "method": "tools/list", "id": 1}'</code></pre>
+  </div>
+
+  <p><a href="/openapi.json">Ver Especificación OpenAPI 3.1 (JSON)</a> | <a href="/.well-known/ai-catalog.json">Ver ARD Catalog</a></p>
+</body>
+</html>

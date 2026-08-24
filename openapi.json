@@ -1,0 +1,94 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Psicóloga Karen Cardiel API",
+    "version": "1.0.0",
+    "description": "API pública para consulta de servicios psicológicos, suscripción a newsletter y contacto con la Psicóloga Karen Cardiel."
+  },
+  "servers": [
+    {
+      "url": "https://www.karencardiel.com",
+      "description": "Servidor de Producción"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health check del servicio",
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "description": "Servicio saludable y operativo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ok" },
+                    "service": { "type": "string", "example": "psicologa-karen-cardiel" },
+                    "timestamp": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/subscribe": {
+      "post": {
+        "summary": "Suscribir correo al boletín de salud mental",
+        "operationId": "subscribeNewsletter",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email"],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "usuario@ejemplo.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Suscripción completada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Suscripción registrada con éxito." }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email inválido o faltante"
+          }
+        }
+      }
+    },
+    "/api/mcp": {
+      "post": {
+        "summary": "Endpoint Streamable HTTP MCP (Model Context Protocol)",
+        "operationId": "handleMcpRpc",
+        "description": "Endpoint JSON-RPC 2.0 para interactuar con las herramientas MCP del sitio.",
+        "responses": {
+          "200": {
+            "description": "Respuesta JSON-RPC"
+          }
+        }
+      }
+    }
+  }
+}

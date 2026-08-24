@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+# Directivas de Señales de Contenido IA (Content Signals - IETF)
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# Descubrimiento de Recursos Agénticos (ARD / Agentic Resource Discovery)
+Agentmap: https://www.karencardiel.com/.well-known/ai-catalog.json
+
+# Mapa del sitio
 Sitemap: https://www.karencardiel.com/sitemap.xml

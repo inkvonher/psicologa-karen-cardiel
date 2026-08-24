@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "karencardiel-services",
+      "type": "skill-md",
+      "description": "Consultar catálogo de servicios de psicología clínica, enfoques terapéuticos y tarifas de la Psicóloga Karen Cardiel.",
+      "url": "https://www.karencardiel.com/.well-known/agent-skills/karencardiel-services/SKILL.md",
+      "digest": "sha256:8d449d4beda9acebd888e1fdf82d6b854d8094c70768010fdefbac9932379550"
+    },
+    {
+      "name": "appointment-booking",
+      "type": "skill-md",
+      "description": "Flujo para orientar y facilitar el agendamiento de citas de terapia en línea con la Psicóloga Karen Cardiel vía WhatsApp y Google Meet.",
+      "url": "https://www.karencardiel.com/.well-known/agent-skills/appointment-booking/SKILL.md",
+      "digest": "sha256:0f4144e79167f615c0279db8d9a25c5e2a46d53086e5d4726c2d78128c5ce4af"
+    },
+    {
+      "name": "newsletter-subscription",
+      "type": "skill-md",
+      "description": "Procedimiento para registrar usuarios en el newsletter de salud mental y autocuidado de la Psicóloga Karen Cardiel.",
+      "url": "https://www.karencardiel.com/.well-known/agent-skills/newsletter-subscription/SKILL.md",
+      "digest": "sha256:b59efe29c158b973e7438ee674a53763f5f02d907e32509a6596b96267b0a808"
+    }
+  ]
+}
